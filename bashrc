@@ -92,6 +92,14 @@ clean_up () {
     set +x
     exit $ARG
 } 
+ma() {
+    # set -x
+    newalias=$1
+    prevcmd=$(fc -ln -2|head -1|sed 's/^\s*//')
+    eval alias $newalias='$prevcmd'
+    # set -x
+    eval $newalias
+}
 trap clean_up EXIT
 installnvim
 
@@ -114,6 +122,8 @@ alias l='ls -lhF --color=auto'
 alias la='ls -alhF --color=auto'
 alias le='less'
 alias np="echo $USER ALL=NOPASSWD:   ALL| sudo tee -a /etc/sudoers"
+alias ni='nix-env -i'
+alias nqi='nix-env --query --installed'
 alias p='popd'
 alias s='ls -CF --color=auto'
 alias t='ls -1tr  --color=auto'
