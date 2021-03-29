@@ -92,13 +92,11 @@ clean_up () {
     set +x
     exit $ARG
 } 
-ma() {
-    # set -x
+ma() { # make new alias for the previous command
     newalias=$1
     prevcmd=$(fc -ln -2|head -1|sed 's/^\s*//')
     eval alias $newalias='$prevcmd'
-    # set -x
-    eval $newalias
+    eval echo alias $newalias='$prevcmd' >> /tmp/.aliases
 }
 trap clean_up EXIT
 installnvim
