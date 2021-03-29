@@ -14,7 +14,9 @@ bind -m vi-insert "\C-a.":beginning-of-line
 bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
 PROMPT_COMMAND=reset_readline_prompt_mode_strings
-PS1=' '
+#[ "${BASH_VERSINFO:-0}" -ge 5 ] PS1=' ' || PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
+[ "${BASH_VERSINFO:-0}" -ge 5 ] && PS1=' ' || PS1='\u@\h:\w (vi): '
+
 set -o vi
 shopt -s autocd histappend
 
