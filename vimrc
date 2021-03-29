@@ -151,18 +151,18 @@ nmap <c-c>               gcc
 
 nnoremap <leader>dw          diw
 nnoremap <leader>ec          :edit!   c:/<cr>
-execute "nnoremap <leader>ea  :edit!   ~/" . g:dotfile . "/ansible.vim<cr>"
-execute "nnoremap <leader>eb  :edit!   ~/" . g:dotfile . "/ExecutorBuffer.java<cr>"
-execute "nnoremap <leader>ee  :edit!   ~/" . g:dotfile . "/eQWERTY.ahk<cr>"
-execute "nnoremap <leader>eg  :edit!   ~/" . g:dotfile . "/nvim/ginit.vim<cr>"
-execute "nnoremap <leader>ei  :edit!   ~/" . g:dotfile . "/.gitignore<cr>"
-nnoremap <leader>ej  :edit!   ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+execute "nnoremap <leader>ea  :edit!   " . g:dotfile . "/ansible.vim<cr>"
+execute "nnoremap <leader>eb  :edit!   " . g:dotfile . "/ExecutorBuffer.java<cr>"
+execute "nnoremap <leader>ee  :edit!   " . g:dotfile . "/eQWERTY.ahk<cr>"
+execute "nnoremap <leader>eg  :edit!   " . g:dotfile . "/nvim/ginit.vim<cr>"
+execute "nnoremap <leader>ei  :edit!   " . g:dotfile . "/.gitignore<cr>"
+" nnoremap <leader>ej  :edit!   ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 nnoremap <leader>el  :edit!   c:/sandbox/MTR/Libraries<cr>
-execute "nnoremap <leader>ep  :edit!   ~/" . g:dotfile . "/profile.ps1<cr>"
+execute "nnoremap <leader>ep  :edit!   " . g:dotfile . "/profile.ps1<cr>"
 nnoremap <leader>es  :edit!   ~/src/<cr>
-execute "nnoremap <leader>et  :edit!   ~/" . g:dotfile . "/tap.ahk<cr>"
-execute "nnoremap <leader>ev  :edit!   ~/" . g:dotfile . "/vimrc<cr>"
-execute "nnoremap <leader>v   :edit!   ~/" . g:dotfile . "/vimrc<cr>"
+execute "nnoremap <leader>et  :edit!   " . g:dotfile . "/tap.ahk<cr>"
+execute "nnoremap <leader>ev  :edit!   " . g:dotfile . "/vimrc<cr>"
+execute "nnoremap <leader>v   :edit!   " . g:dotfile . "/vimrc<cr>"
 nnoremap <leader>ex  :exe getline(line('.'))<cr>
 nnoremap <leader>os  :silent ! cmd /c start  ..\AppData\Local\nvim-data\swap<cr>
 nnoremap <leader>of  :silent ! start %<cr>
@@ -171,17 +171,17 @@ nnoremap <leader>ft  :set ft=
 nnoremap <leader>h   :noh<cr>
 nnoremap <leader>j   :jumps<cr>
 nnoremap <leader>k   :48vs ergolaptop<cr>:set nonumber<cr><c-w>h
-execute "nnoremap <leader>l   :source ~/" . g:dotfile . "/nvim/session.vim<cr>"
+execute "nnoremap <leader>l   :source " . g:dotfile . "/nvim/session.vim<cr>"
 nnoremap <leader>m   :marks<cr>
 nnoremap <leader>pi  :PlugInstall<cr>
 nnoremap <leader>q   :quit!<cr>
-"nnoremap <leader>ef  :edit ~/" . g:dotfile . "/fayevimrc<cr>"
-execute "nnoremap <leader>sf  :source ~/" . g:dotfile . "/fayevimrc<cr>"
+"nnoremap <leader>ef  :edit " . g:dotfile . "/fayevimrc<cr>"
+execute "nnoremap <leader>sf  :source " . g:dotfile . "/fayevimrc<cr>"
 nnoremap <leader>st  vip:sort<cr>
-execute "nnoremap <leader>sa  :source ~/" . g:dotfile . "/ansible.vim<cr>"
-execute "nnoremap <leader>sv  :source ~/" . g:dotfile . "/vimrc<cr>"
-execute "nnoremap <leader>sg  :source ~/" . g:dotfile . "/nvim/ginit.vim<cr>"
-execute "nnoremap <leader>ss  :w<cr>:source ~/" . g:dotfile . "/vimrc<cr>:source " . g:dotfile . "/nvim/ginit.vim<cr>"
+execute "nnoremap <leader>sa  :source " . g:dotfile . "/ansible.vim<cr>"
+execute "nnoremap <leader>sv  :source " . g:dotfile . "/vimrc<cr>"
+execute "nnoremap <leader>sg  :source " . g:dotfile . "/nvim/ginit.vim<cr>"
+execute "nnoremap <leader>ss  :w<cr>:source " . g:dotfile . "/vimrc<cr>:source " . g:dotfile . "/nvim/ginit.vim<cr>"
 nnoremap <leader>t   :vsplit<cr>:set nonumber<cr>:terminal bash<cr>i
 nnoremap <leader>w   :w<cr>
 nnoremap <leader>z   :color zellner<cr>
@@ -277,8 +277,8 @@ nnoremap   ee           e
 
 " f map
 " nnoremap   <C-f>        :CocCommand explorer<CR>
-execute "nnoremap   FEd          :Fern ~/" . g:dotfile . "<CR>"
-execute "nnoremap   FGd          :GFiles ~/" . g:dotfile . "<CR>"
+execute "nnoremap   FEd          :Fern " . g:dotfile . "<CR>"
+execute "nnoremap   FGd          :GFiles " . g:dotfile . "<CR>"
 nnoremap   <C-f>        :Fern . -drawer -toggle<CR>
 nnoremap   F            <Nop>
 nnoremap   FB           :Buffers<CR>
