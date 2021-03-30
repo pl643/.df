@@ -111,7 +111,7 @@ clean_up() {
         touch /tmp/.df/.keep
         exit 0
     fi
-    echo "cleaning up.."
+    echo "Cleaning up.."
     set -x
     rm -rf /tmp/.df
     exit $ARG
@@ -164,12 +164,13 @@ alias G='git'
 alias Gh='git push'
 alias Gl='git pull'
 alias Gc='git commit'
+alias Gcm='git commit -m'
+alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='echo cd ~; cd'
 alias hi='history'
 alias iv='installnvim'
 alias rdf='rm -rf /tmp/.df'
-alias keepdf='echo touch /tmp/.df/.keep; touch /tmp/.df/.keep'
 alias l='ls -lhF --color=auto'
 alias la='ls -alhF --color=auto'
 alias ll='ls -alhF --color=always|less -R'
