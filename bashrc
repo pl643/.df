@@ -14,8 +14,13 @@ bind -m vi-insert "\C-a.":beginning-of-line
 bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
 PROMPT_COMMAND=reset_readline_prompt_mode_strings
-#[ "${BASH_VERSINFO:-0}" -ge 5 ] PS1=' ' || PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
-[ "${BASH_VERSINFO:-0}" -ge 5 ] && PS1=' ' || PS1='\u@\h:\w (vi): '
+# bash insert/normal indicator prompt introduced in ver 4.4
+BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
+if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} >= 4.4" | bc -l) )); then
+    PS1=' ' 
+else
+    PS1='\u@\h:\w (vi): '
+fi
 
 set -o vi
 shopt -s autocd histappend
@@ -88,36 +93,38 @@ c() {
 }
 clean_up () {
     ARG=$?
+    [ -f /tmp/.df/.keep ] && return
     echo "cleaning up.."
     set -x
     rm -rf /tmp/.bashrc
     set +x
     exit $ARG
 } 
+trap clean_up EXIT
+
 ma() { # make new alias for the previous command
     newalias=$1
     prevcmd=$(fc -ln -2|head -1|sed 's/^\s*//')
     eval alias $newalias='$prevcmd'
-    eval echo alias $newalias='$prevcmd' >> /tmp/.aliases
+    eval echo alias $newalias=\'$prevcmd\' >> /tmp/.aliases
 }
-trap clean_up EXIT
-installnvim
+#installnvim
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='cd -'
-alias ..='cd ..'
+alias .='cd ..'
+alias a='alias'
 alias A='ansible'
-alias b='cd -'
+alias b='echo -n "cd -: " ; cd -'
 alias D='docker'
-alias e='$EDITOR'
-alias e.='$EDITOR .'
 alias ff="git ls-files | grep"
 alias G='git'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
-alias h='cd'
+alias h='echo cd ~; cd'
 alias hi='history'
-alias inv='installnvim'
-alias rnv='rm -rf /tmp/.df'
+alias iv='installnvim'
+alias rdf='rm -rf /tmp/.df'
+alias keepdf='echo touch /tmp/.df/.keep; touch /tmp/.df/.keep'
 alias l='ls -lhF --color=auto'
 alias la='ls -alhF --color=auto'
 alias le='less'
@@ -128,7 +135,10 @@ alias p='popd'
 alias s='ls -CF --color=auto'
 alias t='ls -1tr  --color=auto'
 alias sa='ls -aCF --color=auto'
+alias sb='echo source /tmp/.df/bashrc; source /tmp/.df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
-alias u='cd ..'
+alias u='echo cd..; cd ..'
+alias v='$EDITOR'
+alias v.='$EDITOR .'
 set -o history
