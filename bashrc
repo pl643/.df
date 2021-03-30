@@ -105,7 +105,7 @@ tnew () {
 clean_up() {
     ARG=$?
     [ -f $df/.keep ] && return
-    read -p "Keep $df? " -rsn1 input
+    read -p "Keep $(echo $df|sed 's,/*[^/]\+/*$,,')? " -rsn1 input
     if [ "$input" = "y" ]; then
         touch $df/.keep
         exit 0
