@@ -944,7 +944,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         Plug 'tpope/vim-commentary'
         Plug 'michaeljsmith/vim-indent-object'      " https://github.com/michaeljsmith/vim-indent-object
         Plug 'airblade/vim-gitgutter'
-        Plug 'vim-scripts/AutoComplPop'  " https://www.youtube.com/watch?v=2f8h45YR494
+        " Plug 'vim-scripts/AutoComplPop'  " https://www.youtube.com/watch?v=2f8h45YR494
         Plug 'tpope/vim-fugitive'
         Plug 'mhinz/vim-startify'
         Plug 'tpope/vim-dispatch'
@@ -952,7 +952,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         Plug 'junegunn/fzf.vim'
         Plug 'antoinemadec/FixCursorHold.nvim' " needed for fern
         Plug 'lambdalisue/fern.vim'            " faster nerdtree
-        Plug 'honza/vim-snippets'
+        " Plug 'honza/vim-snippets'
         " Plug 'neoclide/coc.nvim', {'branch': 'release' }      " stable version
         Plug 'bling/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
@@ -989,7 +989,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         " Plug 'neoclide/coc.nvim'     " new completion
         " Plug 'https://github.com/vimpostor/vim-tpipeline'
         "
-        Plug 'christoomey/vim-tmux-navigator'
+        " Plug 'christoomey/vim-tmux-navigator'
         " Plug 'TaDaa/vimade'
     endif
     call plug#end()

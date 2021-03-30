@@ -161,6 +161,7 @@ alias cdf='echo cd /tmp/.df; cd /tmp/.df'
 alias D='docker'
 alias ff="git ls-files | grep"
 alias G='git'
+alias Ga='git add'
 alias Gh='git push'
 alias Gl='git pull'
 alias Gc='git commit'

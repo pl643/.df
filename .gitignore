@@ -1,4 +1,7 @@
-nvim/session.vimrc
-nvim-linux64/*
 .dirhistoryfile
+nvim-linux64/*
+nvim/plugged/AutoComplPop
+nvim/plugged/vim-snippets
+nvim/plugged/vim-tmux-navigator
 nvim/session.vim
+nvim/session.vimrc
