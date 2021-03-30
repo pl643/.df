@@ -1,16 +1,11 @@
 " ~/df/vimrc - BEGIN
 " NOTE: Vim fold commands: zr - unfold / zm - fold
 
-" let/set {{{
-if isdirectory($HOME . "/df")
-    let g:dotfile = "~/df"
-    let g:plug_vim_path="~/df/nvim/plug.vim"
-    let g:plug_vim_dir_path="~/df/nvim/plugged"
-endif
-if isdirectory("/tmp/.df")
-    let g:dotfile = "/tmp/.df"
-    let g:plug_vim_path="/tmp/.df/nvim/plug.vim"
-    let g:plug_vim_dir_path="/tmp/.df/nvim/plugged"
+let userdotfile="/tmp/" . "." . $USER . "/.df"
+if isdirectory(userdotfile)
+    let g:dotfile = userdotfile
+    let g:plug_vim_path=userdotfile . "/nvim/plug.vim"
+    let g:plug_vim_dir_path=userdotfile . "/nvim/plugged"
 endif
 " echo "dotfile: " . g:dotfile
 
