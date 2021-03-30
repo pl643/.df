@@ -1092,7 +1092,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:alt_navigation="/tmp/.df/alt-navigation.vim"
+let g:alt_navigation= userdotfile . "/alt-navigation.vim"
 if filereadable(expand(g:alt_navigation))
     execute "source " . g:alt_navigation
 endif
