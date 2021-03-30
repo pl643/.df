@@ -364,7 +364,7 @@ nnoremap   Gh          :Dispatch! git push<cr>
 nnoremap   Gl          :Dispatch! git pull<cr>
 nnoremap   Gy          :Goyo 120x100%<cr> <bar> :set number<cr>
 
-" nnoremap   gbh         :bp<cr>
+nnoremap   gbh         :bp<cr>
 " nnoremap   gbl         :bn<cr>
 " nnoremap   gbd         :bd<cr>
 nnoremap   Gr          :Grep \<<C-r><C-w>\><CR>
@@ -645,6 +645,8 @@ vnoremap   O  vip
 "}}}
 
 nnoremap ;s         <c-\><c-n><c-w><c-w>
+nnoremap ;P         <c-w><c-w>i<C-r>"+
+vnoremap t          y<c-w><c-w><c-\><c-n>pi
 
 " Terminal mappings {{{
 if has('nvim')
@@ -654,6 +656,7 @@ if has('nvim')
     tnoremap <M-s>      <c-\><c-n><c-w><c-w>
     tnoremap ;s         <c-\><c-n><c-w><c-w>
     tnoremap ;o         <c-\><c-n><c-w>oi
+    " tnoremap ;p         y<c-\><c-n><c-w>p
     tnoremap <M-e>      <c-\><c-n>
 endif
 "}}}
