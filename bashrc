@@ -104,15 +104,16 @@ tnew () {
 
 clean_up() {
     ARG=$?
+    $pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"
     [ -f $df/.keep ] && return
-    read -p "Keep $(echo $df|sed 's,/*[^/]\+/*$,,')? " -rsn1 input
+    read -p "Keep $pdf? " -rsn1 input
     if [ "$input" = "y" ]; then
         touch $df/.keep
         exit 0
     fi
     echo "Cleaning up.."
     set -x
-    rm -rf $(echo $df|sed 's,/*[^/]\+/*$,,')
+    rm -rf "$pdf"
     exit $ARG
 } 
 trap clean_up EXIT
