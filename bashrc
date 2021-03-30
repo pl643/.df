@@ -108,6 +108,7 @@ clean_up() {
     [ -f /tmp/.df/.keep ] && return
     read -p "Keep /tmp/.df? " -rsn1 input
     if [ "$input" = "y" ]; then
+        touch /tmp/.df/.keep
         exit 0
     fi
     echo "cleaning up.."
