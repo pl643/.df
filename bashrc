@@ -96,7 +96,7 @@ clean_up () {
     [ -f /tmp/.df/.keep ] && return
     echo "cleaning up.."
     set -x
-    rm -rf /tmp/.bashrc
+    rm -rf /tmp/.df
     set +x
     exit $ARG
 } 
@@ -108,7 +108,6 @@ ma() { # make new alias for the previous command
     eval alias $newalias='$prevcmd'
     eval echo alias $newalias=\'$prevcmd\' >> /tmp/.aliases
 }
-##installnvim
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='cd -'
@@ -116,9 +115,13 @@ alias .='cd ..'
 alias a='alias'
 alias A='ansible'
 alias b='echo -n "cd -: " ; cd -'
+alias cdf='echo cd /tmp/.df; cd /tmp/.df'
 alias D='docker'
 alias ff="git ls-files | grep"
 alias G='git'
+alias Gh='git push'
+alias Gl='git pull'
+alias Gc='git commit'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='echo cd ~; cd'
 alias hi='history'
