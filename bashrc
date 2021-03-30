@@ -112,7 +112,7 @@ clean_up() {
     fi
     echo "Cleaning up.."
     set -x
-    rm -rf $df
+    rm -rf $(echo $df|sed 's,/*[^/]\+/*$,,')
     exit $ARG
 } 
 trap clean_up EXIT
