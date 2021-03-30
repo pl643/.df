@@ -56,7 +56,7 @@ lazygit() {
    git push origin "$push_branch"
 }
 
-en() {
+vn() { # start vim with file:33 to jump to line 33
     file=$(echo $1|cut -f1 -d:)
     line=$(echo $1|cut -f2 -d:)
     $EDITOR $file -c :$line
