@@ -1,8 +1,8 @@
-#cat > /tmp/.bashrc
 history -c
 set +o history
 HISTCONTROL=ignorespace
-export HISTFILE=/tmp/.df/HISTFILE
+df=$DF/.df
+export HISTFILE="$df/HISTFILE"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 reset_readline_prompt_mode_strings () {
@@ -64,12 +64,11 @@ en() {
 
 installnvim() {
     set -x
-    [ ! -d /tmp/.df ] && mkdir /tmp/.df
-    [ ! -d /tmp/.df/nvim-linux64 ] && \
-        wget -O /tmp/.df/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz && \
-        tar xfz /tmp/.df/nvim-linux64.tar.gz -C /tmp/.df && rm -f /tmp/.df/nvim-linux64.tar.gz
-    if [ -f /tmp/.df/vimrc ] && [ -f /tmp/.df/nvim-linux64/bin/nvim ]; then
-        export EDITOR="/tmp/.df/nvim-linux64/bin/nvim -u /tmp/.df/vimrc"
+    [ ! -d "$df/nvim-linux64" ] && \
+        wget -O $df/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz && \
+        tar xfz $df/nvim-linux64.tar.gz -C $df && rm -f $df/nvim-linux64.tar.gz
+    if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
+        export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
     else
         export EDITOR="nvim"
     fi
@@ -105,20 +104,20 @@ tnew () {
 
 clean_up() {
     ARG=$?
-    [ -f /tmp/.df/.keep ] && return
-    read -p "Keep /tmp/.df? " -rsn1 input
+    [ -f $df/.keep ] && return
+    read -p "Keep $df? " -rsn1 input
     if [ "$input" = "y" ]; then
-        touch /tmp/.df/.keep
+        touch $df/.keep
         exit 0
     fi
     echo "Cleaning up.."
     set -x
-    rm -rf /tmp/.df
+    rm -rf $df
     exit $ARG
 } 
 trap clean_up EXIT
 
-dirhistoryfile="/tmp/.df/.dirhistoryfile"
+dirhistoryfile="$df/.dirhistoryfile"
 cd() {
     builtin cd "$@" && ls -CF --color=auto; 
     [ $# -eq 0 ] && return
@@ -127,7 +126,7 @@ cd() {
     echo $@ >> $dirhistoryfile
 }
 
-dirbookmarkfile="/tmp/.df/.dirbookmark"
+dirbookmarkfile="$df/.dirbookmark"
 alias sdb="echo source $dirbookmarkfile; source $dirbookmarkfile"
 db() { # bookmark current directory as alias for quick access
     if [ $# -eq 0 ]; then
@@ -137,7 +136,7 @@ db() { # bookmark current directory as alias for quick access
     set -x
     newalias=$1
     eval alias $newalias=\'echo cd $PWD\; "cd $PWD"\'
-    alias $newalias >> /tmp/.df/.dirbookmark
+    alias $newalias >> $df/.dirbookmark
     set +x
 }
 
@@ -146,7 +145,7 @@ ma() { # make new alias for the previous command
     newalias=$1
     prevcmd=$(fc -ln -2|head -1|sed 's/^\s*//')
     eval alias $newalias=\'echo $prevcmd\; "$prevcmd"\'
-    eval echo alias $newalias=\'$prevcmd\' >> /tmp/.aliases
+    eval echo alias $newalias=\'$prevcmd\' >> "$df/aliases"
     set +x
 }
 
@@ -157,11 +156,12 @@ alias a='alias'
 alias A='ansible'
 alias b='echo -n "cd -: " ; cd -'
 alias c=cd
-alias cdf='echo cd /tmp/.df; cd /tmp/.df'
+alias cdf='echo cd $df; cd $df'
 alias D='docker'
 alias ff="git ls-files | grep"
 alias G='git'
 alias Ga='git add'
+alias Gd='git diff'
 alias Gh='git push'
 alias Gl='git pull'
 alias Gc='git commit'
@@ -171,7 +171,7 @@ alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD
 alias h='echo cd ~; cd'
 alias hi='history'
 alias iv='installnvim'
-alias rdf='rm -rf /tmp/.df'
+alias rdf='rm -rf $df'
 alias l='ls -lhF --color=auto'
 alias la='ls -alhF --color=auto'
 alias ll='ls -alhF --color=always|less -R'
@@ -184,7 +184,7 @@ alias s='ls -CF --color=auto'
 alias t='ls -1tr  --color=auto'
 alias sa='ls -aCF --color=auto'
 alias sl='ls -aCF --color=always|less -R'
-alias sb='echo source /tmp/.df/bashrc; source /tmp/.df/bashrc'
+alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias u='echo cd ..; cd ..'
