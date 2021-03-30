@@ -108,7 +108,7 @@ ma() { # make new alias for the previous command
     eval alias $newalias='$prevcmd'
     eval echo alias $newalias=\'$prevcmd\' >> /tmp/.aliases
 }
-#installnvim
+##installnvim
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='cd -'
