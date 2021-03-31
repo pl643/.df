@@ -78,8 +78,8 @@ installnvim() {
 }
 
 tnew () { 
-    if [ -f ~/df/tmux.windows.name.update.sh ]; then
-        tmux new -d -s "$1" bash --rcfile ~/df/tmux.windows.name.update.sh
+    if [ -f $df/tmux.windows.name.update.sh ]; then
+        tmux new -d -s "$1" bash --rcfile $df/tmux.windows.name.update.sh
     else
         tmux new -d -s "$1" bash
     fi
