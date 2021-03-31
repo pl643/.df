@@ -7,3 +7,4 @@ nvim/session.vim
 nvim/session.vimrc
 .dirbookmark
 HISTFILE
+.keep
