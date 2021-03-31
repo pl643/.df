@@ -180,6 +180,7 @@ alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD
 alias h='echo cd ~; cd'
 alias hi='history'
 alias iv='installnvim'
+alias ifz='installfzf'
 alias rdf='rm -rf $df'
 alias l='ls -lhF --color=always | less -FR'
 alias la='ls -alhF --color=always | less -FR'
