@@ -5,3 +5,5 @@ nvim/plugged/vim-snippets
 nvim/plugged/vim-tmux-navigator
 nvim/session.vim
 nvim/session.vimrc
+.dirbookmark
+HISTFILE
