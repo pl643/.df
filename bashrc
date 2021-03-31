@@ -120,7 +120,7 @@ trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
 cd() {
-    builtin cd "$@" && ls -CF --color=auto; 
+    builtin cd "$@" && (/bin/ls -lF --color=always | less -FR)
     [ $# -eq 0 ] && return
     [ $@ = "-" ] && return
     [ $@ = ".." ] && return
@@ -173,17 +173,17 @@ alias h='echo cd ~; cd'
 alias hi='history'
 alias iv='installnvim'
 alias rdf='rm -rf $df'
-alias l='ls -lhF --color=auto'
-alias la='ls -alhF --color=auto'
-alias ll='ls -alhF --color=always|less -R'
+alias l='ls -lhF --color=always | less -FR'
+alias la='ls -alhF --color=always | less -FR'
+alias ll='ls -alhF --color=always | less -FR'
 alias le='less'
-alias np="echo $USER ALL=NOPASSWD:   ALL| sudo tee -a /etc/sudoers"
+alias np="echo $USER ALL=NOPASSWD:   ALL | sudo tee -a /etc/sudoers"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
 alias p='popd'
-alias s='ls -CF --color=auto'
-alias t='ls -1tr  --color=auto'
-alias sa='ls -aCF --color=auto'
+alias s='ls -CF --color=always | less -FR'
+alias t='ls -1tr  --color=always | less -FR'
+alias sa='ls -aCF --color=always | less -FR'
 alias sl='ls -aCF --color=always|less -R'
 alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
