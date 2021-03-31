@@ -147,7 +147,7 @@ nmap <c-c>               gcc
 nnoremap <leader>dw          diw
 nnoremap <leader>ec          :edit!   c:/<cr>
 execute "nnoremap <leader>ea  :edit!   " . g:dotfile . "/ansible.vim<cr>"
-execute "nnoremap <leader>eb  :edit!   " . g:dotfile . "/ExecutorBuffer.java<cr>"
+execute "nnoremap <leader>eb  :edit!   " . g:dotfile . "/bashrc<cr>"
 execute "nnoremap <leader>ee  :edit!   " . g:dotfile . "/eQWERTY.ahk<cr>"
 execute "nnoremap <leader>eg  :edit!   " . g:dotfile . "/nvim/ginit.vim<cr>"
 execute "nnoremap <leader>ei  :edit!   " . g:dotfile . "/.gitignore<cr>"
