@@ -1,0 +1,201 @@
+# PCS Solutions TMUX Customization (The 1nd best tmux.conf, because there is
+#   already a best tmux.conf which I used to get started with tmux a few years
+#   back. It is still availble here:
+#   https://gist.github.com/spicycode/1229612 (The best and greatest tmux.conf
+#   ever)
+
+# ALT-tmux is part of my cutomized environment to make my daily linux activity more
+#   productive by taking binding my most used keys the ALT modifier.
+
+# OS X users, you can swap the CMD key with the ALT key through preferences just for iTerm2,
+#   this way your thumb can be in a better position.
+#
+# NOTES: ALT-() switch to previous/next session
+#        PREFIX-w list windows
+#        PREFIX-$ rename session
+
+set -s escape-time 0   # prevent Esc+hjkl to switch pane.
+set -g prefix C-a
+#set -g mode-mouse on
+#set -g mouse-select-window on
+# set-option -g lock-command vlock
+
+# OS X related settings
+
+bind-key -n  M-Tab run "sshpass -p f ssh pcs@10.0.2.2 'open /Applications/Google\\ Chrome.app'"
+if-shell "uname | grep -q Darwin" "source-file .tmux.Darwin"
+
+run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 8-)"
+
+#run-shell "if tmux list-keys|grep M-r|grep root|wc -l|sed -e 's/ //g'"
+#if-shell -b '[ "$(echo "$TMUX_VERSION < 2.1" | bc)" = 1 ]' \
+#bind-key -n  M-p display      'ALT-p not configured, type "alt" to configure.'
+#bind-key -n  M-p new-window   -n '-exec'                'bash ~/.tmux.profile -exec vi .tmux.profile'
+bind-key p new-window   -n 'Setup ALT-p password'                'bash ~/df/tmux.profile -alt_password p'
+#bind-key -n C-p new-window   -n 'ALT-p password'                'bash ~/df/tmux.profile -alt_password p'
+# bind-key -n  M-r  send-keys Escape :w C-m \; sleep 5\; send-keys -t {next} Up C-m
+# bind-key -n  M-r  send-keys Escape :w C-m \; send-keys -t {next} \; Up C-m
+# bind-key -n  C-s  send-keys *
+
+# ALT+keys for my commonly used commands.
+bind-key -n  M-A new-window   -n '[vi ~/.bash_aliases]' 'vi ~/.bash_aliases'
+bind-key -n  M-B display "ALT-B was pressed"
+#bind-key -n  M-C split-window  -l 30 -h       		'exec vifm ~/Cheats'  # vifm hotkey
+bind-key -n  M-C choose-window
+bind-key -n  M-D send-keys    C-d             # CTRL-d (EOF)
+bind-key -n  M-E display "ALT-E was pressed"
+#bind-key -n  M-F new-window   -n VIFM     		'bash ~/df/tmux.profile -exec vifm'
+bind-key -n  M-f display-panes
+bind-key -n  M-G display "ALT-G was pressed"
+#bind-key -n  M-I display "ALT-I was pressed"
+bind-key -n  M-M display "ALT-M was pressed"
+bind-key -n  M-N display "ALT-N was pressed"
+bind-key -n  M-O display "ALT-O was pressed"
+bind-key -n  M-Q display "ALT-Q was pressed"
+bind-key -n  M-R source-file  ~/.tmux.conf \; display "Reloading ~/.tmux.conf..."
+bind-key -n  M-W source-file  /mnt/nvm/users/ply/tmux.white \; display "Reloading ~/.tmux.white..."
+bind-key -n  M-T new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi .tmux.conf TM.conf'  # THIS FILE
+bind-key -n  M-U send-key "#ALT-U was pressed"
+bind-key -n  M-U new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi /mnt/nvm/users/ply/URLS URLS'
+bind-key -n  M-P new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi ~/df/tmux.profile TM.profile'
+bind-key -n  M-N new-window   -n '-exec'                'bash ~/df/tmux.profile -exec nvim ~/NOTES NOTES'
+bind-key -n  M-! new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi /mnt/nvm/users/ply/bash_aliases'
+#bind-key -n  M-Space new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi ~/SYSTEMS SYSNOTES'
+bind-key -n  M-V new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi .vimrc Vimrc'
+bind-key -n  M-? new-window   -n '-exec'                'bash ~/df/tmux.profile -exec vi ~/df/tmux.help TM.Help'
+bind-key -n  M-c new-window   -n '-exec'                'bash ~/df/tmux.profile -exec bash --rcfile ~/df/tmux.windows.name.update.sh'
+bind-key -n  M-c new-window   -n '-exec'                'bash --rcfile ~/df/tmux.windows.name.update.sh'
+bind-key -n  M-Enter display "ALT-Enter was pressed"
+
+### Disable normal keys to force learning alt-X alternative
+#bind-key -n Enter  display "press ALT-m for Enter"
+#bind-key -n Escape display "press ALT-e for Escape"
+#bind-key -n Bspace display "press ALT-space for Bspace"
+#bind-key -n Left   display "Disabled"
+#bind-key -n Right  display "Disabled"
+#bind-key -n Up     display "Disabled"
+#bind-key -n Down   display "Disabled"
+
+#bind-key -n  M-Space send-keys    BSpace
+#bind-key -n  M-e send-keys    Escape           # no need to reach for the ESC!
+#bind-key -n  M-u send-keys    Up
+#bind-key -n  M-n send-keys    Down            # no need to reach for the Backspace!
+#bind-key -n  M-m send-keys    Enter
+#bind-key -n  M-f send-keys    "10" C-y
+#bind-key -n  M-f send-keys    C-u
+#bind-key -n  M-d send-keys    "10" C-e
+#bind-key -n  M-d send-keys    C-d
+# bind-key -n  M-i send-keys    C-i
+# bind-key -n  M-n send-keys    C-n
+# bind-key -n  M-p send-keys    C-o
+
+# bind-key -n  M-t send-keys    Escape "a    "
+# bind-key -n  M-w send-keys    Escape ":w" C-m
+#bind-key -n  M-W send-keys    C-w
+# bind-key -n  M-q send-keys    Escape ":q" C-m
+# bind-key -n  M-Q send-keys    Escape ":q!" C-m
+# bind-key -n  M-Z send-keys    "exec zsh" C-m
+#bind-key -n  M-@ send-keys    "source /mnt/nvm/users/ply/tmux.altshift2" C-m
+
+# ALT-[0-9] select Windows
+bind-key -n  M-1 select-window -t :1
+bind-key -n  M-2 select-window -t :2
+bind-key -n  M-3 select-window -t :3
+bind-key -n  M-4 select-window -t :4
+bind-key -n  M-5 select-window -t :5
+bind-key -n  M-6 select-window -t :6
+bind-key -n  M-7 select-window -t :7
+bind-key -n  M-8 select-window -t :8
+bind-key -n  M-9 select-window -t :9
+bind-key -n  M-0 select-window -t :10
+
+# Pane navigation
+bind-key -n  M-( switch-client -p
+bind-key -n  M-) switch-client -n
+bind-key -n  M-u select-pane -t :.+ 
+bind-key -n  M-p select-pane -t :.+ \; resize-pane -Z \; display-pane
+
+# Pane navigation
+bind-key -n  M-o next-window
+# bind-key -n  M-` next-window
+# bind-key -n  M-~ previous-window
+# bind-key -n  M-i previous-window
+bind-key -n  M-- last-window
+bind-key -n  M-z resize-pane -Z   # Maximize/restore pane
+bind-key -n  M-[ swap-pane    -U
+bind-key -n  M-] swap-pane    -D
+
+# Pane resize (Shift-Alt)  # PREFIX-r to change default
+bind-key -n  M-H resize-pane -L 5
+bind-key -n  M-J resize-pane -D 5
+bind-key -n  M-K resize-pane -U 5
+bind-key -n  M-L resize-pane -R 5
+
+# Use Alt-vim keys without prefix key to switch panes
+bind-key -n  M-h select-pane -L
+# bind-key -n  C-h select-pane -L
+bind-key -n  M-j select-pane -D
+# bind-key -n  C-j select-pane -D
+bind-key -n  M-k select-pane -U
+# bind-key -n  C-k select-pane -U
+bind-key -n  M-l select-pane -R
+# bind-key -n  C-l select-pane -R
+# bind-key -n  M-f next-window
+# bind-key -n  M-[ next-window
+# bind-key -n  C-s previous-window
+bind-key -n  M-i previous-window
+bind-key -n  M-t choose-tree
+
+#  TMUX set window number to starts at 1 (default is 0)
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Automatically set window title
+set-window-option -g automatic-rename on
+set-option        -g bell-action none
+set-option        -g visual-bell off
+set-option        -g status-position top
+set-option        -g set-titles on
+
+set  -g set-titles-string '#{pane_title}'
+set  -g default-terminal screen-256color
+set  -g status-keys      vi
+set  -g history-limit    10000
+
+setw -g mode-keys        vi
+setw -g monitor-activity on
+
+set  -g repeat-time 1000 # when larger screen connects, it will resize
+setw -g aggressive-resize on
+
+# bind-key  S command-prompt -p ssh: "new-window -n %1 'ssh %1'"
+bind-key  r command-prompt -p 'resize cnt (1-10):' "bind-key -n M-H resize-pane -L '%1'; bind-key -n M-L resize-pane -R '%2'; bind-key -n M-J resize-pane -D '%1'; bind-key -n M-K resize-pane -U '%1'; "
+# bind-key  s split-window -h 'bash --rcfile ~/df/tmux.windows.name.update.sh'
+bind-key -n M-s split-window -h 'bash --rcfile ~/df/tmux.windows.name.update.sh'
+bind-key  s split-window -v 'bash --rcfile ~/df/tmux.windows.name.update.sh'
+bind-key  a send-keys    C-a             # CTRL-a
+bind-key  e send-keys    C-e             # CTRL-e
+bind-key  b display "C-a b was pressed"
+bind-key  k kill-pane
+bind-key  K kill-window
+bind-key -n  M-, command-prompt -p "Enter window name:" "run 'AS=$(tmux list-windows | grep active | cut -f1 -d:); tmux set-environment altkey_pressed 1; tmux set-environment WINDOWNAME_S\$AS %1; bash ~/df/tmux.profile update_window_name'"
+bind-key -n  M-< command-prompt -p "Enter static pane name (\"\" to switch back to dynamic):" "run 'AW=$(tmux list-windows | grep active | cut -f1 -d:); AP=$(tmux list-pane | grep active | cut -f1 -d:); tmux set-environment altkey_pressed 1; tmux set-environment PANENAME_S\${AW}_P\${AP}_S %1; bash ~/.tmux.profile update_window_name'"
+
+# # Syncronize pane
+# bind-key -n  M-= setw synchronize-panes on
+# bind-key -n  F12 setw synchronize-panes on
+# bind-key -n  M-+ setw synchronize-panes off
+# bind-key -n  F10 setw synchronize-panes off
+
+# iTerm2 active screen emulation settings found here:
+# https://stackoverflow.com/questions/25532773/change-background-color-of-active-or-inactive-pane-in-tmux
+set -g window-style         'fg=colour247,bg=colour236'   # bg=232 darkest
+set -g window-active-style  'fg=colour255,bg=black'
+
+# Experiemental features
+# set -g display-panes-time 10000
+
+# bind-key Y pipe-pane "exec cat >>$HOME/tmux.log" \; display-message 'Started logging to $HOME/#W-tmux.log'
+# bind-key y pipe-pane \; display-message 'Ended logging to $HOME/#W-tmux.log'
+# * / * * * 
+source ~/df/tmux-gruvbox-dark.conf
