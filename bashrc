@@ -2,6 +2,7 @@ history -c
 set +o history
 HISTCONTROL=ignorespace
 df=$DF/.df
+export PATH=$df/bin:$PATH
 export HISTFILE="$df/HISTFILE"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
@@ -62,6 +63,13 @@ vn() { # start vim with file:33 to jump to line 33
     $EDITOR $file -c :$line
 }
 
+installfzf() {
+    set -x
+    [ ! -f "$df/bin/fzf" ] && \
+        wget -O $df/fzf.tgz https://github.com/junegunn/fzf/releases/download/0.26.0/fzf-0.26.0-linux_amd64.tar.gz && \
+        tar xfz $df/fzf.tgz -C $df/bin && rm -f $df/fzf.tgz
+}
+
 installnvim() {
     set -x
     [ ! -d "$df/nvim-linux64" ] && \
@@ -104,11 +112,11 @@ tnew () {
 
 clean_up() {
     ARG=$?
-    $pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"
-    [ -f $df/.keep ] && return
+    pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"  # parent of df
+    [ -f "$df/.keep" ] && return
     read -p "Keep $pdf? " -rsn1 input
     if [ "$input" = "y" ]; then
-        touch $df/.keep
+        touch "$df/.keep"
         exit 0
     fi
     echo "Cleaning up.."
