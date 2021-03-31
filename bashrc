@@ -2,6 +2,7 @@ history -c
 set +o history
 HISTCONTROL=ignorespace
 df=$DF/.df
+[ -z $USER ] && export USER=$(whoami)
 export PATH=$df/bin:$PATH
 export HISTFILE="$df/HISTFILE"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
