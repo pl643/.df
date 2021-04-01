@@ -129,14 +129,12 @@ trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
 cd() {
-    set -x
     builtin cd "$@" && (/bin/ls -lF --color=always | less -FRX)
     [ $# -eq 0 ] && return
     cdcmpstr=$(echo $@ | sed 's/--//')
     [ "$cdcmpstr" = "-" ] && return
     [ "$cdcmpstr" = ".." ] && return
     echo $@ >> $dirhistoryfile
-    set +x
 }
 
 dirbookmarkfile="$df/.dirbookmark"
