@@ -129,11 +129,14 @@ trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
 cd() {
-    builtin cd "$@" && (/bin/ls -lF --color=always | less -FR)
+    set -x
+    builtin cd "$@" && (/bin/ls -lF --color=always | less -FRX)
     [ $# -eq 0 ] && return
-    [ $@ = "-" ] && return
-    [ $@ = ".." ] && return
+    cdcmpstr=$(echo $@ | sed 's/--//')
+    [ "$cdcmpstr" = "-" ] && return
+    [ "$cdcmpstr" = ".." ] && return
     echo $@ >> $dirhistoryfile
+    set +x
 }
 
 dirbookmarkfile="$df/.dirbookmark"
@@ -183,17 +186,17 @@ alias hi='history'
 alias iv='installnvim'
 alias ifz='installfzf'
 alias rdf='rm -rf $df'
-alias l='ls -lhF --color=always | less -FR'
-alias la='ls -alhF --color=always | less -FR'
-alias ll='ls -alhF --color=always | less -FR'
+alias l='ls -lhF --color=always | less -FRX'
+alias la='ls -alhF --color=always | less -FRX'
+alias ll='ls -alhF --color=always | less -FRX'
 alias le='less'
 alias np="echo $USER ALL=NOPASSWD:   ALL | sudo tee -a /etc/sudoers"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
 alias p='popd'
-alias s='ls -CF --color=always | less -FR'
-alias t='ls -1tr  --color=always | less -FR'
-alias sa='ls -aCF --color=always | less -FR'
+alias s='ls -CF --color=always | less -FRX'
+alias t='ls -1tr  --color=always | less -FRX'
+alias sa='ls -aCF --color=always | less -FRX'
 alias sl='ls -aCF --color=always|less -R'
 alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
