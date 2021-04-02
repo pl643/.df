@@ -235,7 +235,8 @@ set -o history
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
 if [ ! -z $TMUX ]; then
     tmux source $df/tmux.conf
-    tmux source $df/gruvbox.tmux
+    tmux source $df/tmux.gruvbox
+    source $df/tmux.bash
 fi
 
 #alias UU='echo 33'
