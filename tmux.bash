@@ -1,5 +1,4 @@
-source ~/df/bash_aliases
-source ~/df/bash-preexec.sh
+source $df/bash-preexec.sh
 
 preexec() {
     set +m
