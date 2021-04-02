@@ -1,4 +1,4 @@
-source $df/bash-preexec.sh
+source $DF/.df/bash-preexec.sh
 
 preexec() {
     set +m
