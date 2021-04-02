@@ -17,14 +17,19 @@ bind -m vi-insert 'Control-l: clear-screen'
 bind -m vi-insert "\C-a.":beginning-of-line
 bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
+bind 'TAB':menu-complete
+bind "set show-all-if-ambiguous on"
+bind "set menu-complete-display-prefix on"
 
 PROMPT_COMMAND=reset_readline_prompt_mode_strings
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} >= 4.4" | bc -l) )); then
     PS1=' ' 
+    export LESS="-FXRM" # F follow 
 else
     PS1='\u@\h:\w (vi): '
+    export LESS="-FRM" # F follow 
 fi
 
 set -o vi
@@ -94,22 +99,45 @@ tnew () {
     fi
 }
 
-# c() {  # cd alias
-#     if [ $# -eq 0 ]; then
-#         dirs|tr ' ' '\n'|sort|uniq|nl -w 4
-#         read -p "Enter number: " dir
-#         if [ ! -z $dir ]; then
-#             d=$(dirs|tr ' ' '\n'|sort|uniq|nl -w 4|head -$dir|tail -1|cut -f 2 -d$'\t')
-#             if [ $d == '~' ]; then
-#                 cd ~
-#             else
-#                 cd $d
-#             fi
-#         fi
-#     else
-#         pushd $1
-#     fi
-# }
+# alias dX to $dirhistoryfile sorted by usage
+bash_history() {  # cd alias
+    top=20
+    echo Creating alias in $HISTFILE for top $top usage..
+    # set -x
+    history -a
+    list=$(sort $HISTFILE|uniq -c|sort -r|cut -b 9-)
+    i=1
+    for e in $list; do 
+        [ $i -ge $top ] && return
+        length=$(echo -n "$e"|wc -c) 
+        # echo DBO: "$e $length"
+        if [ $length -gt 5 ] && [ $length -lt 80 ] ; then
+            # echo DBI: "$e"
+            alias h$i="$e"
+            echo "  h$i $e"
+            let i=i+1
+        fi
+    done
+    # set +x
+}
+
+# alias dX to $dirhistoryfile sorted by usage
+dir_history() {  # cd alias
+    dirlist=$(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
+    i=1
+    for e in $dirlist; do 
+        # echo "$e"; 
+        set -x
+        alias d$i="$e"
+        set +x
+        echo $i $e
+        let i=i+1
+    done
+    set -x
+    echo UU 41
+    eval alias uu='echo 41'
+    set -x
+}
 
 clean_up() {
     ARG=$?
@@ -129,44 +157,43 @@ trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
 cd() {
-    builtin cd "$@" && (/bin/ls -lF --color=always | less -FRX)
+    builtin cd "$@" && (/bin/ls -lF --color=always | less)
     [ $# -eq 0 ] && return
     cdcmpstr=$(echo $@ | sed 's/--//')
     [ "$cdcmpstr" = "-" ] && return
     [ "$cdcmpstr" = ".." ] && return
-    echo $@ >> $dirhistoryfile
+    # set -x
+    echo $PWD >> $dirhistoryfile
+    # set +x
 }
 
-dirbookmarkfile="$df/.dirbookmark"
-alias sdb="echo source $dirbookmarkfile; source $dirbookmarkfile"
-db() { # bookmark current directory as alias for quick access
-    if [ $# -eq 0 ]; then
-        [ -f $dirbookmarkfile ] && cat $dirbookmarkfile
-        return
-    fi
-    set -x
-    newalias=$1
-    eval alias $newalias=\'echo cd $PWD\; "cd $PWD"\'
-    alias $newalias >> $df/.dirbookmark
-    set +x
-}
+# dirbookmarkfile="$df/.dirbookmark"
+# alias sdb="echo source $dirbookmarkfile; source $dirbookmarkfile"
+# db() { # bookmark current directory as alias for quick access
+#     if [ $# -eq 0 ]; then
+#         [ -f $dirbookmarkfile ] && cat $dirbookmarkfile
+#         return
+#     fi
+#     newalias=$1
+#     eval alias $newalias=\'echo cd $PWD\; "cd $PWD"\'
+#     alias $newalias >> $df/.dirbookmark
+# }
 
 ma() { # make new alias for the previous command
-    set -x
     newalias=$1
     prevcmd=$(fc -ln -2|head -1|sed 's/^\s*//')
     eval alias $newalias=\'echo $prevcmd\; "$prevcmd"\'
     eval echo alias $newalias=\'$prevcmd\' >> "$df/aliases"
-    set +x
 }
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='cd -'
-alias .='cd ..'
 alias a='alias'
 alias A='ansible'
-alias b='echo -n "cd -: " ; cd -'
+alias b='echo -n "cd -: " ; builtin cd -'
 alias c=cd
+alias d='echo Directory alias from $dirhistoryfile; dir_history|column'
+alias fd='eval $(sort $dirhistoryfile|uniq|sed -e s/--// -e s/\\s// -e 's/^\/$//'|fzf)'
 alias cdf='echo cd $df; cd $df'
 alias D='docker'
 alias ff="git ls-files | grep"
@@ -179,27 +206,31 @@ alias Gc='git commit'
 alias Gcm='git commit -m'
 alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
-alias h='echo cd ~; cd'
+alias h='bash_history'
 alias hi='history'
 alias iv='installnvim'
 alias ifz='installfzf'
 alias rdf='rm -rf $df'
-alias l='ls -lhF --color=always | less -FRX'
-alias la='ls -alhF --color=always | less -FRX'
-alias ll='ls -alhF --color=always | less -FRX'
+alias l='ls -lhF --color=always | less'
+alias la='ls -alhF --color=always | less'
+alias ll='ls -alhF --color=always | less'
 alias le='less'
-alias np="echo $USER ALL=NOPASSWD:   ALL | sudo tee -a /etc/sudoers"
+alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
 alias p='popd'
-alias s='ls -CF --color=always | less -FRX'
-alias t='ls -1tr  --color=always | less -FRX'
-alias sa='ls -aCF --color=always | less -FRX'
-alias sl='ls -aCF --color=always|less -R'
+alias s='ls -CF --color=always | less'
+alias sa='ls -aCF --color=always | less'
+alias sl='ls -aCF --color=always | less'
 alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
-alias u='echo cd ..; cd ..'
+alias t='ls -1tr  --color=always | less'
+alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='$EDITOR'
 alias v.='$EDITOR .'
 set -o history
+
+[ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
+
+#alias UU='echo 33'
