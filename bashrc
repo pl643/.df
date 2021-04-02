@@ -201,6 +201,7 @@ alias G='git'
 alias Ga='git add'
 alias Gd='git diff'
 alias Gh='git push'
+alias Gi='git config --global user.email "peter.wt.ly@gmail.com"; git config --global user.name "Peter Ly"'
 alias Gl='git pull'
 alias Gc='git commit'
 alias Gcm='git commit -m'
@@ -232,5 +233,9 @@ alias v.='$EDITOR .'
 set -o history
 
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
+if [ ! -z $TMUX ]; then
+    tmux source $df/tmux.conf
+    tmux source $df/gruvbox.tmux
+fi
 
 #alias UU='echo 33'
