@@ -93,4 +93,9 @@ bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\
 bind -m vi-command '"\ec": "\C-z\ec\C-z"'
 bind -m vi-insert '"\ec": "\C-z\ec\C-z"'
 
+# ALT-d - select cd history from $history file into the selected directory
+bind -m emacs-standard '"\ed": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind -m vi-command '"\ed": "\C-z\ed\C-z"'
+bind -m vi-insert '"\ed": "\C-z\ed\C-z"'
+
 fi
