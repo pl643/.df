@@ -8,3 +8,4 @@ nvim/session.vimrc
 .dirbookmark
 HISTFILE
 .keep
+nvim/plugged/*

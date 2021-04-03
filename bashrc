@@ -39,6 +39,11 @@ calc() {
     bc -l <<< "$@"
 }
 
+e() {
+    echo eval \$$@
+    eval \$$@
+}
+
 ft() {  # find text
     grep -iIHrn --color=always "$1" . | less -R -r -X   # less -X don't clear after exit
 }
@@ -123,20 +128,25 @@ bash_history() {  # cd alias
 
 # alias dX to $dirhistoryfile sorted by usage
 dir_history() {  # cd alias
+    if [ $# -ne 0 ] ; then
+        eval \$d$@
+        return
+    fi
+    echo DB: dp: $#
     dirlist=$(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
     i=1
     for e in $dirlist; do 
         # echo "$e"; 
-        set -x
+        # set -x
         alias d$i="$e"
-        set +x
+        # set +x
         echo $i $e
         let i=i+1
     done
-    set -x
-    echo UU 41
-    eval alias uu='echo 41'
-    set -x
+    # set -x
+    # echo UU 41
+    # eval alias uu='echo 41'
+    # set -x
 }
 
 clean_up() {
@@ -192,7 +202,7 @@ alias a='alias'
 alias A='ansible'
 alias b='echo -n "cd -: " ; builtin cd -'
 alias c=cd
-alias d='echo Directory alias from $dirhistoryfile; dir_history|column'
+alias d='echo Directory alias from $dirhistoryfile; dir_history'
 alias fd='eval $(sort $dirhistoryfile|uniq|sed -e s/--// -e s/\\s// -e 's/^\/$//'|fzf)'
 alias cdf='echo cd $df; cd $df'
 alias D='docker'
@@ -227,6 +237,7 @@ alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias t='ls -1tr  --color=always | less'
+alias T='tmux'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='$EDITOR'
 alias v.='$EDITOR .'
@@ -237,6 +248,8 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
     source $df/tmux.bash
+else
+    tmux -2 new
 fi
 
 #alias UU='echo 33'
