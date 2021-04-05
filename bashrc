@@ -167,7 +167,7 @@ trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
 cd() {
-    builtin cd "$@" && (/bin/ls -lF --color=always | less)
+    builtin cd "$@" && (/bin/ls -lhF --color=always | less)
     [ $# -eq 0 ] && return
     cdcmpstr=$(echo $@ | sed 's/--//')
     [ "$cdcmpstr" = "-" ] && return
@@ -237,7 +237,7 @@ alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias t='ls -1tr  --color=always | less'
-alias T='tmux'
+alias T='tmux -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='$EDITOR'
 alias v.='$EDITOR .'
@@ -252,4 +252,4 @@ else
     tmux -2 new
 fi
 
-#alias UU='echo 33'
+echo Note: last line in $df/bashrc

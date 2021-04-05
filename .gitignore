@@ -9,3 +9,5 @@ nvim/session.vimrc
 HISTFILE
 .keep
 nvim/plugged/*
+nvim/plugged/vim-fugitive
+nvim/plugged/websearch.vim
