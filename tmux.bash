@@ -1,15 +1,15 @@
-source $DF/.df/bash-preexec.sh
+source $df/bash-preexec.sh
 
 preexec() {
     set +m
-    setenv_panename "$(echo $1|cut -f1 -d ' '|sed 's/\s/_/g')" "x" &
+    [ ! -z $TMUX ] && setenv_panename "$(echo $1|cut -f1 -d ' '|sed 's/\s/_/g')" "x" &
 }
 
 precmd() {
     # set +m
     bind "set vi-ins-mode-string \"$USER@$HOSTNAME:$(echo $PWD|sed "s+$HOME+~+") \$ \1\e[1;32m\2[I]\1\e[0m\2\""; 
     bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:$(echo $PWD|sed "s+$HOME+~+") \$ \1\e[1;31m\2[N]\1\e[0m\2\"";
-    setenv_panename "$PWD" "/"
+    [ ! -z $TMUX ] && setenv_panename "$PWD" "/"
 }
 PS1=' '; bind 'set show-mode-in-prompt on'; set -o vi
 
