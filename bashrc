@@ -81,20 +81,26 @@ installfzf() {
         tar xfz $df/fzf.tgz -C $df/bin && rm -f $df/fzf.tgz
 }
 
-installnvim() {
-    set -x
-    [ ! -d "$df/nvim-linux64" ] && \
-        wget -O $df/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz && \
-        tar xfz $df/nvim-linux64.tar.gz -C $df && rm -f $df/nvim-linux64.tar.gz
+run_nvim() {
+    # set -x
+    if [ ! -d "$df/nvim-linux64" ]; then 
+        wget -O $df/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+        tar xfz $df/nvim-linux64.tar.gz -C $df
+        rm -f $df/nvim-linux64.tar.gz
+        $df/nvim-linux64/bin/nvim -u $df/vimrc -c PlugInstall -c q -c :q
+        $EDITOR -c PlugInstall -c q -c :q
+    fi
     if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
-        $EDITOR -c PlugInstall -c q -c :q
-    else
-        export EDITOR="nvim"
     fi
-    set +x
-    echo EDITOR: $EDITOR
-    export VISUAL=$EDITOR
+    if [ $# -ne 0 ] ; then
+        $EDITOR
+    else
+        $EDITOR $@
+    fi
+    # set +x
+    # echo EDITOR: $EDITOR
+    # export VISUAL=$EDITOR
 }
 
 tnew () { 
@@ -182,6 +188,7 @@ clean_up() {
 trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
+touch $dirhistoryfile
 cd() {
     builtin cd "$@" && (/bin/ls -lhF --color=always | less)
     [ $# -eq 0 ] && return
@@ -235,28 +242,27 @@ alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='bash_history'
 alias hi='history'
-alias iv='installnvim'
 alias ifz='installfzf'
 alias rdf='rm -rf $DF'
-alias l='ls -lhF --color=always | less'
-alias la='ls -alhF --color=always | less'
-alias ll='ls -alhF --color=always | less'
+alias l='echo ls -lhF; ls -lhF --color=always | less'
+alias la='echo ls -alhF; ls -alhF --color=always | less'
+# alias ll='echo ls -lhF; ls -lhF --color=always | less'
 alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
-alias p='popd'
-alias s='ls -CF --color=always | less'
+alias s='echo ls -CF; ls -CF --color=always | less'
 alias sa='ls -aCF --color=always | less'
 alias sl='ls -aCF --color=always | less'
 alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
-alias t='ls -1tr  --color=always | less'
-alias T='tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
+alias lt='ls -1tr  --color=always | less'
+alias ta='tmux -2 attach'
+alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
-alias v='$EDITOR'
-alias v.='$EDITOR .'
+alias v='run_nvim'
+alias v.='run_nvim .'
 set -o history
 
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
