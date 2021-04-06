@@ -88,12 +88,12 @@ installnvim() {
         tar xfz $df/nvim-linux64.tar.gz -C $df && rm -f $df/nvim-linux64.tar.gz
     if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
+        $EDITOR -c PlugInstall -c q -c :q
     else
         export EDITOR="nvim"
     fi
     set +x
     echo EDITOR: $EDITOR
-    $EDITOR -c PlugInstall -c q
     export VISUAL=$EDITOR
 }
 
@@ -238,7 +238,7 @@ alias sb='echo source $df/bashrc; source $df/bashrc'
 alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias t='ls -1tr  --color=always | less'
-alias T='tmux -f $df/tmux.conf new bash --rcfile $df/bashrc'
+alias T='tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='$EDITOR'
 alias v.='$EDITOR .'
