@@ -117,7 +117,6 @@ bash_history() {  # cd alias
     echo Creating alias in $HISTFILE for top $top usage..
     # set -x
     history -a
-    list=$(sort $HISTFILE|uniq -c|sort -r|cut -b 9-)
     i=1
     while read -r line; do
         length=$(echo -n "$line"|wc -c) 
@@ -137,14 +136,23 @@ dir_history() {  # cd alias
         eval \$d$@
         return
     fi
-    echo DB: dp: $#
-    dirlist=$(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
+    i=1
+    while read -r line; do
+        line=$(echo $line | sed 's/ /\\ /g')
+        # eval alias d$i=\"$line\"
+        eval alias $i='$line'
+        echo $i "$line"
+        let i=i+1
+    done < <(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
+    return
+    # echo DB: dp: $#
+    # dirlist=$(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
     i=1
     for e in $dirlist; do 
-        # echo "$e"; 
+        # echo DB: \"$e\"; 
         # set -x
-        alias d$i="$e"
-        alias $i="$e"
+        eval alias d$i=\"$e\"
+        eval alias $i=\"$e\"
         # set +x
         echo $i $e
         let i=i+1
@@ -155,21 +163,20 @@ dir_history() {  # cd alias
     # set -x
 }
 
-# clean_up() {
-#     ARG=$?
-#     pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"  # parent of df
-#     [ -f "$df/.keep" ] && return
-#     read -p "Keep $pdf? " -rsn1 input
-#     if [ "$input" = "y" ]; then
-#         touch "$df/.keep"
-#         exit 0
-#     fi
-#     echo "Cleaning up.."
-#     set -x
-#     rm -rf "$pdf"
-#     exit $ARG
-# } 
-# trap clean_up EXIT
+function cdf() {
+    # echo DB: $@
+    if [ $# -eq 0 ]; then
+        echo Usage: cdf '/full/path/to/a/file'
+        return
+    fi
+    dir=$(echo $@|sed 's,/*[^/]\+/*$,,')
+    echo cd \"$dir\"
+    if [ -d "$dir" ]; then
+        eval builtin cd \"$dir\"
+    else
+        echo \"$dir\" does not exist
+    fi
+}
 
 clean_up() {
     ARG=$?
@@ -195,7 +202,7 @@ cd() {
     [ "$cdcmpstr" = "-" ] && return
     [ "$cdcmpstr" = ".." ] && return
     # set -x
-    echo $PWD >> $dirhistoryfile
+    pwd >> $dirhistoryfile
     # set +x
 }
 
@@ -226,7 +233,7 @@ alias b='echo -n "cd -: " ; builtin cd -'
 alias c=cd
 alias d='echo Directory alias from $dirhistoryfile; dir_history'
 alias fd='eval $(sort $dirhistoryfile|uniq|sed -e s/--// -e s/\\s// -e 's/^\/$//'|fzf)'
-alias cdf='echo cd $df; cd $df'
+alias DF='echo cd $df; cd $df'
 alias D='docker'
 alias ff="git ls-files | grep"
 alias G='git'
