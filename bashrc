@@ -150,18 +150,33 @@ dir_history() {  # cd alias
     # set -x
 }
 
+# clean_up() {
+#     ARG=$?
+#     pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"  # parent of df
+#     [ -f "$df/.keep" ] && return
+#     read -p "Keep $pdf? " -rsn1 input
+#     if [ "$input" = "y" ]; then
+#         touch "$df/.keep"
+#         exit 0
+#     fi
+#     echo "Cleaning up.."
+#     set -x
+#     rm -rf "$pdf"
+#     exit $ARG
+# } 
+# trap clean_up EXIT
+
 clean_up() {
     ARG=$?
-    pdf="$(echo $df|sed 's,/*[^/]\+/*$,,')"  # parent of df
     [ -f "$df/.keep" ] && return
-    read -p "Keep $pdf? " -rsn1 input
+    read -p "Keep $DF? " -rsn1 input
     if [ "$input" = "y" ]; then
         touch "$df/.keep"
         exit 0
     fi
     echo "Cleaning up.."
     set -x
-    rm -rf "$pdf"
+    rm -rf "$DF"
     exit $ARG
 } 
 trap clean_up EXIT
@@ -222,7 +237,7 @@ alias h='bash_history'
 alias hi='history'
 alias iv='installnvim'
 alias ifz='installfzf'
-alias rdf='rm -rf $df'
+alias rdf='rm -rf $DF'
 alias l='ls -lhF --color=always | less'
 alias la='ls -alhF --color=always | less'
 alias ll='ls -alhF --color=always | less'
