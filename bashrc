@@ -194,7 +194,7 @@ clean_up() {
 trap clean_up EXIT
 
 dirhistoryfile="$df/.dirhistoryfile"
-touch $dirhistoryfile
+[ -d "$df" ] && touch $dirhistoryfile
 cd() {
     builtin cd "$@" && (/bin/ls -lhF --color=always | less)
     [ $# -eq 0 ] && return
