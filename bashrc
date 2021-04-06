@@ -119,18 +119,16 @@ bash_history() {  # cd alias
     history -a
     list=$(sort $HISTFILE|uniq -c|sort -r|cut -b 9-)
     i=1
-    for e in $list; do 
-        [ $i -ge $top ] && return
-        length=$(echo -n "$e"|wc -c) 
-        # echo DBO: "$e $length"
+    while read -r line; do
+        length=$(echo -n "$line"|wc -c) 
         if [ $length -gt 5 ] && [ $length -lt 80 ] ; then
-            # echo DBI: "$e"
-            alias h$i="$e"
-            echo "  h$i $e"
+            echo h$i $line
+            eval alias h$i=\"$line\"
             let i=i+1
         fi
-    done
-    # set +x
+    done < <(sort $HISTFILE|uniq -c|sort -r|cut -b 9-)
+    return
+
 }
 
 # alias dX to $dirhistoryfile sorted by usage
@@ -146,6 +144,7 @@ dir_history() {  # cd alias
         # echo "$e"; 
         # set -x
         alias d$i="$e"
+        alias $i="$e"
         # set +x
         echo $i $e
         let i=i+1
