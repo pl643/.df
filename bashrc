@@ -252,6 +252,7 @@ alias ifz='installfzf'
 alias rdf='rm -rf $DF'
 alias l='echo ls -lhF; ls -lhF --color=always | less'
 alias la='echo ls -alhF; ls -alhF --color=always | less'
+alias lg='lazygit'
 # alias ll='echo ls -lhF; ls -lhF --color=always | less'
 alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
