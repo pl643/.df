@@ -275,7 +275,7 @@ set -o history
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
 [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
 if [ ! -z $TMUX ]; then
-    echo tmux ourcing tmux.conf and tmux.gruvbox
+    echo tmux sourcing tmux.conf and tmux.gruvbox
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 fi
