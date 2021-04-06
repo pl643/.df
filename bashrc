@@ -93,6 +93,7 @@ installnvim() {
     fi
     set +x
     echo EDITOR: $EDITOR
+    $EDITOR -c PlugInstall -c q
     export VISUAL=$EDITOR
 }
 
