@@ -113,7 +113,7 @@ tnew () {
 
 # alias dX to $dirhistoryfile sorted by usage
 bash_history() {  # cd alias
-    top=20
+    top=30
     echo Creating alias in $HISTFILE for top $top usage..
     # set -x
     history -a
