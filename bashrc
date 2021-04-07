@@ -104,10 +104,13 @@ run_nvim() {
 }
 
 tnew () { 
-    if [ -f $df/tmux.windows.name.update.sh ]; then
-        tmux new -d -s "$1" bash --rcfile $df/tmux.windows.name.update.sh
-    else
-        tmux new -d -s "$1" bash
+    if [ $# = 0 ]; then
+        printf "Usage: tnew sesion-name, strats new tmux\n" 
+        return
+    fi
+    if [ -f $df/tmux.bash ]; then
+        tmux new -d -s "$1" bash --rcfile $df/tmux.bash
+        tmux switch -t "$1"
     fi
 }
 
