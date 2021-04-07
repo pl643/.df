@@ -228,7 +228,8 @@ ma() { # make new alias for the previous command
 }
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
-alias -- -='cd -'
+alias -- -='set -x'
+alias +='set +x'
 alias a='alias'
 alias A='ansible'
 alias b='echo -n "cd -: " ; builtin cd -'
