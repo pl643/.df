@@ -35,7 +35,7 @@ function update_window_name() {
         if echo $pane_name | grep -q '^/'; then
             symbol="/"
             pane_name=$(echo $pane_name |sed "s+$HOME+~+"|sed "s+.*/++")
-            if [ $pane_name == "~" ]; then
+            if [ $pane_name = "~" ]; then
                 symbol=""
             fi
         else
