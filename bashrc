@@ -121,13 +121,12 @@ bash_history() {  # cd alias
     while read -r line; do
         length=$(echo -n "$line"|wc -c) 
         if [ $length -gt 5 ] && [ $length -lt 80 ] ; then
-            echo h$i $line
+            printf "h%2d $line\n" $i
             eval alias h$i=\"$line\"
             let i=i+1
         fi
     done < <(sort $HISTFILE|uniq -c|sort -r|cut -b 9-)
     return
-
 }
 
 # alias dX to $dirhistoryfile sorted by usage
@@ -141,7 +140,7 @@ dir_history() {  # cd alias
         line=$(echo $line | sed 's/ /\\ /g')
         # eval alias d$i=\"$line\"
         eval alias $i='$line'
-        echo $i "$line"
+        printf "%3d $line\n" $i
         let i=i+1
     done < <(sort $dirhistoryfile |grep -v -e '^/$' -e "$HOME"|uniq -c|sort -r|cut -b 9-)
     return
@@ -281,4 +280,4 @@ else
     tmux -2 new
 fi
 
-echo Note: last line in $df/bashrc
+printf "Note: last line in $df/bashrc\n"
