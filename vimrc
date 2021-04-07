@@ -520,7 +520,7 @@ inoremap   UU          <Esc>viwUA
 
 " x map
 nnoremap   X           ZZ
-inoremap   XX          <Esc>ZZ
+inoremap   XX          <Esc>:wqall<cr>
 
 " z map
 " nnoremap   Z            <Nop>
