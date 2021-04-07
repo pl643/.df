@@ -1,7 +1,7 @@
 history -c
 set +o history
 HISTCONTROL=ignorespace
-df=$DF/.df
+export df=$DF/.df
 [ -z $USER ] && export USER=$(whoami)
 export PATH=$df/bin:$PATH
 export HISTFILE="$df/HISTFILE"
@@ -272,12 +272,11 @@ alias v.='run_nvim .'
 set -o history
 
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
+[ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
 if [ ! -z $TMUX ]; then
+    echo tmux sourcing tmux.conf and tmux.gruvbox
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
-    source $df/tmux.bash
-else
-    tmux -2 new
 fi
 
-printf "Note: last line in $df/bashrc\n"
+[ -f $df/bashrc ] && echo Note: last line in $df/bashrc
