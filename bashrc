@@ -29,9 +29,9 @@ if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} >= 4.4" | bc -l) )); then
     PS1=' ' 
     export LESS="-FXRM" # F follow 
 else
-    PS1=$PS1vi
     export LESS="-FRM" # F follow 
-    echo 'bash --verion > 4.4'
+    echo 'Note: bash --version < 4.4'
+    export PS1=$PS1vi
 fi
 
 set -o vi
