@@ -1,4 +1,4 @@
-[ -f $df/bin/fetch/fetch ] && $df/bin/fetch/fetch
+[ -f $df/fetch/fetch ] && $df/fetch/fetch
 history -c
 set +o history
 HISTCONTROL=ignorespace
