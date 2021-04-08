@@ -58,4 +58,4 @@ function update_window_name() {
     tmux rename-window "$window_name"
     # echo "$window_name"
 }
-echo Note: last line in /tmp/.ply/.df/tmux.bash
+echo Note: last line in /tmp/.$USER/.df/tmux.bash
