@@ -276,9 +276,8 @@ alias v.='run_nvim .'
 set -o history
 
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
-[ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
 if [ ! -z $TMUX ]; then
-    echo tmux sourcing tmux.conf and tmux.gruvbox
+    [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 fi
