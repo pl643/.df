@@ -273,17 +273,18 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 fi
-[ -f $df/bashrc ] && echo Note: last line in $df/bashrc
 
 PROMPT_COMMAND=reset_readline_prompt_mode_strings
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
     export LESS="-FRM" # F follow 
-    echo 'Note: bash --version < 4.4, set PS1 prompt with ps1 alias'
-    PS1=$PS1vi
+    echo 'Note: bash --version < 4.4
+    bash --version
     ps1
 else
     PS1=' ' 
     export LESS="-FXRM" # F follow 
 fi
+
+[ -f $df/bashrc ] && echo Note: last line in $df/bashrc
