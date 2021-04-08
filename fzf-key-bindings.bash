@@ -77,6 +77,12 @@ if [ "${BASH_VERSINFO[0]}" -lt 4 ]; then
   bind -m vi-command '"\C-r": "\C-z\C-r\C-z"'
   bind -m vi-insert '"\C-r": "\C-z\C-r\C-z"'
 else
+  # CTRL-U - Paste the selected file path into the command line
+  bind -m emacs-standard -x '"\C-h": "cd .."'
+  bind -m vi-command -x '"\C-h": "cd .."'
+  bind -m vi-insert -x '"\C-h": "cd ..; echo \ \ Output of cd ..\; ls -lCF $PWD"'
+  # bind -m emacs -x '"\C-u":"cd .."'
+
   # CTRL-T - Paste the selected file path into the command line
   bind -m emacs-standard -x '"\C-t": fzf-file-widget'
   bind -m vi-command -x '"\C-t": fzf-file-widget'
