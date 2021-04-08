@@ -1,3 +1,4 @@
+[ -f $df/bin/fetch/fetch ] && $df/bin/fetch/fetch
 history -c
 set +o history
 HISTCONTROL=ignorespace
@@ -21,18 +22,6 @@ bind -m vi-insert "\C-w.":backward-kill-word
 bind 'TAB':menu-complete
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"
-
-PROMPT_COMMAND=reset_readline_prompt_mode_strings
-# bash insert/normal indicator prompt introduced in ver 4.4
-BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
-if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
-    export LESS="-FRM" # F follow 
-    echo 'Note: bash --version < 4.4, set PS1 prompt with ps1 alias'
-    PS1=$PS1vi
-else
-    PS1=' ' 
-    export LESS="-FXRM" # F follow 
-fi
 
 set -o vi
 shopt -s autocd histappend
@@ -278,7 +267,6 @@ alias v='run_nvim'
 alias v.='run_nvim .'
 set -o history
 
-[ -f $df/bin/fetch/fetch ] && $df/bin/fetch/fetch
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
 if [ ! -z $TMUX ]; then
     [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
@@ -286,3 +274,16 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.gruvbox
 fi
 [ -f $df/bashrc ] && echo Note: last line in $df/bashrc
+
+PROMPT_COMMAND=reset_readline_prompt_mode_strings
+# bash insert/normal indicator prompt introduced in ver 4.4
+BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
+if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
+    export LESS="-FRM" # F follow 
+    echo 'Note: bash --version < 4.4, set PS1 prompt with ps1 alias'
+    PS1=$PS1vi
+    ps1
+else
+    PS1=' ' 
+    export LESS="-FXRM" # F follow 
+fi
