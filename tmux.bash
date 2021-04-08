@@ -1,7 +1,7 @@
 source $df/bash-preexec.sh
 
 preexec() {
-    set +m
+    set +m  # Job control
     [ ! -z $TMUX ] && setenv_panename "$(echo $1|cut -f1 -d ' '|sed 's/\s/_/g')" "x" &
 }
 
@@ -30,12 +30,19 @@ function update_window_name() {
     pane_count=$(tmux list-panes | wc -l | sed -e 's/ //g')
     # import PANENAME variables
     eval $(tmux show-environment|grep PANENAME)
+    # pane_name="."
+    # echo DB: $pane_name
     for (( i=1; i <= $pane_count; i++ )); do
         eval pane_name="\$PANENAME_S${active_window}_P$i"
         if echo $pane_name | grep -q '^/'; then
-            symbol="/"
+            symbol="#"
             pane_name=$(echo $pane_name |sed "s+$HOME+~+"|sed "s+.*/++")
-            if [ $pane_name = "~" ]; then
+            # echo "  DB: $pane_name"
+            if [ -z $pane_name ]; then
+                pane_name=""
+                symbol="/"
+            fi
+            if [[ "$pane_name" = "~" ]]; then
                 symbol=""
             fi
         else
@@ -51,3 +58,4 @@ function update_window_name() {
     tmux rename-window "$window_name"
     # echo "$window_name"
 }
+echo Note: last line in /tmp/.ply/.df/tmux.bash
