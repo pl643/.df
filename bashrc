@@ -25,20 +25,20 @@ bind "set menu-complete-display-prefix on"
 PROMPT_COMMAND=reset_readline_prompt_mode_strings
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
-if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} >= 4.4" | bc -l) )); then
+if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
+    export LESS="-FRM" # F follow 
+    echo 'Note: bash --version < 4.4, set PS1 prompt with ps1 alias'
+    export PS1=$PS1vi
+else
     PS1=' ' 
     export LESS="-FXRM" # F follow 
-else
-    export LESS="-FRM" # F follow 
-    echo 'Note: bash --version < 4.4'
-    export PS1=$PS1vi
 fi
 
 set -o vi
 shopt -s autocd histappend
 
 calc() {
-    bc -l <<< "$@"
+bc -l <<< "$@"
 }
 
 e() {
