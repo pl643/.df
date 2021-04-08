@@ -28,7 +28,7 @@ BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
     export LESS="-FRM" # F follow 
     echo 'Note: bash --version < 4.4, set PS1 prompt with ps1 alias'
-    export PS1=$PS1vi
+    PS1=$PS1vi
 else
     PS1=' ' 
     export LESS="-FXRM" # F follow 
@@ -38,7 +38,7 @@ set -o vi
 shopt -s autocd histappend
 
 calc() {
-bc -l <<< "$@"
+    bc -l <<< "$@"
 }
 
 e() {
