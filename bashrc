@@ -278,7 +278,7 @@ PROMPT_COMMAND=reset_readline_prompt_mode_strings
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
-    export LESS="-FRM" # F follow 
+    export LESS="-FXRM" # F follow 
     eval echo "'Note: install bash $BASHVER < 4.4, vi mode will not support [I|N]' status"
     ps1
 else
