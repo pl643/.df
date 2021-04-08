@@ -1,6 +1,7 @@
 history -c
 set +o history
 HISTCONTROL=ignorespace
+PS1vi='\u@\h:\w (vi): '
 export df=$DF/.df
 [ -z $USER ] && export USER=$(whoami)
 export PATH=$df/bin:$PATH
@@ -28,8 +29,9 @@ if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} >= 4.4" | bc -l) )); then
     PS1=' ' 
     export LESS="-FXRM" # F follow 
 else
-    PS1='\u@\h:\w (vi): '
+    PS1=$PS1vi
     export LESS="-FRM" # F follow 
+    echo 'bash --verion > 4.4'
 fi
 
 set -o vi
@@ -261,6 +263,7 @@ alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
+alias ps1='PS1=$PS1vi'
 alias s='echo ls -CF; ls -CF --color=always | less'
 alias sa='ls -aCF --color=always | less'
 alias sl='ls -aCF --color=always | less'
@@ -275,11 +278,11 @@ alias v='run_nvim'
 alias v.='run_nvim .'
 set -o history
 
+[ -f $df/bin/fetch/fetch ] && $df/bin/fetch/fetch
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
 if [ ! -z $TMUX ]; then
     [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 fi
-
 [ -f $df/bashrc ] && echo Note: last line in $df/bashrc
