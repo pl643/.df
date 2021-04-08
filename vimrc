@@ -702,13 +702,23 @@ function! RunScript()
     endif
     if extension == "pl"
         write
-        !perl %
-        return
+        if exists('$TMUX') " running inside TMUX
+            silent !tmux send-keys -t {next} Up C-m
+            return
+        else
+            !perl %
+            return
+        endif
     endif
     if extension == "py"
         write
-        !python %
-        return
+        if exists('$TMUX') " running inside TMUX
+            silent !tmux send-keys -t {next} Up C-m
+            return
+        else
+            !python %
+            return
+        endif
     endif
     if extension == "ps1"
         write
