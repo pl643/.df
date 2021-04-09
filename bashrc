@@ -199,6 +199,13 @@ cd() {
     # set +x
 }
 
+tmux_prefix_set() {
+    [ $# -eq 0 ] && echo "Usage: tmux_prefix_set X - X = ctrl-X" && return
+    set -x
+    tmux set -g prefix C-$@
+    set +x
+}
+
 # dirbookmarkfile="$df/.dirbookmark"
 # alias sdb="echo source $dirbookmarkfile; source $dirbookmarkfile"
 # db() { # bookmark current directory as alias for quick access
@@ -261,6 +268,8 @@ alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias lt='ls -1tr  --color=always | less'
 alias ta='tmux -2 attach'
+alias tpe='tmux set -g prefix C-e'
+alias tp='tmux_prefix_set'
 alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
