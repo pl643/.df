@@ -1,4 +1,4 @@
-#[ -f $df/fetch/fetch ] && $df/fetch/fetch
+[ -f $df/fetch/fetch ] && $df/fetch/fetch
 history -c
 set +o history
 HISTCONTROL=ignorespace
@@ -288,6 +288,8 @@ alias ta='tmux -2 attach'
 alias tn='tmux rename-window'
 alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
+alias tsb='tmux set-option -g status-position bottom'
+alias tst='tmux set-option -g status-position top'
 alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
