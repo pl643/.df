@@ -1,4 +1,4 @@
-[ -f $df/fetch/fetch ] && $df/fetch/fetch
+#[ -f $df/fetch/fetch ] && $df/fetch/fetch
 history -c
 set +o history
 HISTCONTROL=ignorespace
@@ -206,6 +206,23 @@ tmux_prefix_set() {
     set +x
 }
 
+tmux_toggle_alt_keys() {
+    set -x
+    # tmux list-keys|grep M-j|grep root
+    # if tmux list-keys|grep M-j|grep -q root; then
+    # if tmux list-keys|grep M-j|grep -v M-l; then
+    tmux list-keys|grep M-j|grep -v M-l
+    return
+    if tmux list-keys|grep M-j|grep -v M-l; then
+        echo bind: yes
+        tmux unbind -n M-h \; unbind -n M-j \; unbind -n M-k \; unbind -n M-l
+    else
+        echo bind: no
+        tmux bind-key -n M-h select-pane -L \; bind-key -n  M-j select-pane -D \; bind-key -n M-k select-pane -U \; bind-key -n  M-l select-pane -R
+    fi
+    set +x
+}
+
 # dirbookmarkfile="$df/.dirbookmark"
 # alias sdb="echo source $dirbookmarkfile; source $dirbookmarkfile"
 # db() { # bookmark current directory as alias for quick access
@@ -268,6 +285,7 @@ alias S='sudo'
 alias SD='sudo $(fc -ln -1)'
 alias lt='ls -1tr  --color=always | less'
 alias ta='tmux -2 attach'
+alias tn='tmux rename-window'
 alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
 alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
