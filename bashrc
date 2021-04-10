@@ -266,8 +266,6 @@ alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='bash_history'
 alias hi='history'
-alias ifz='installfzf'
-alias rdf='rm -rf $DF'
 alias l='echo ls -lhF; ls -lhF --color=always | less'
 alias la='echo ls -alhF; ls -alhF --color=always | less'
 alias lg='lazygit'
@@ -276,6 +274,7 @@ alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
+alias rdf="[ -d $DF ] && echo rm -rf $DF && rm -rf $DF"
 alias s='echo ls -CF; ls -CF --color=always | less'
 alias so='source'
 alias sa='ls -aCF --color=always | less'
@@ -316,5 +315,5 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
-[ -f $df/localrc ] && source $df/localrc
+[ -f $df/localrc ] && echo Note: source $df/localrc && source $df/localrc
 [ -f $df/bashrc ] && echo Note: last line in $df/bashrc
