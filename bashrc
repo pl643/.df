@@ -289,8 +289,8 @@ alias tn='tmux rename-window'
 alias tpb='tmux set -g prefix C-b'
 alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
-alias tsb='tmux set-option -g status-position bottom'
-alias tst='tmux set-option -g status-position top'
+alias tsb='echo tmux set-option -g status-position bottom >> $df/localrc; tmux set-option -g status-position bottom'
+alias tst='echo tmux set-option -g status-position top    >> $df/localrc; tmux set-option -g status-position top'
 alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
@@ -316,4 +316,5 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
+[ -f $df/localrc ] && source $df/localrc
 [ -f $df/bashrc ] && echo Note: last line in $df/bashrc
