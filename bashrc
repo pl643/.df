@@ -309,8 +309,8 @@ PROMPT_COMMAND=reset_readline_prompt_mode_strings
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
     export LESS="-FXRM" # F follow 
-    eval echo "'Note: installed bash $BASHVER < 4.4, vi mode will not support [I|N]' status"
-    ps1
+    eval echo "'Note: installed bash $BASHVER < 4.4, and will not support [I|N]' prompt"
+    export PS1='\u@\h:\w (vi): '
 else
     PS1=' ' 
     export LESS="-FXRM" # F follow 
