@@ -314,5 +314,6 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
-[ -f $df/localrc ] && echo Note: source $df/localrc && source $df/localrc
-[ -f $df/bashrc ] && echo Note: last line in $df/bashrc
+[ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
+[ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
+[ -f $df/bashrc ]     && echo Note: last line in $df/bashrc
