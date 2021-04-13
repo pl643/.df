@@ -2,7 +2,6 @@
 history -c
 set +o history
 HISTCONTROL=ignorespace
-PS1vi='\u@\h:\w (vi): '
 export df=$DF/.df
 [ -z $USER ] && export USER=$(whoami)
 export PATH=$df/bin:$PATH
@@ -303,7 +302,6 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.gruvbox
 fi
 
-PROMPT_COMMAND=reset_readline_prompt_mode_strings
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
@@ -311,6 +309,7 @@ if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
     eval echo "'Note: installed bash $BASHVER < 4.4, and will not support [I|N]' prompt"
     export PS1='\u@\h:\w (vi): '
 else
+    PROMPT_COMMAND=reset_readline_prompt_mode_strings
     PS1=' ' 
     export LESS="-FXRM" # F follow 
 fi
