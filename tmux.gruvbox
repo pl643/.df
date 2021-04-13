@@ -1,5 +1,6 @@
   
 ## COLORSCHEME: gruvbox dark (medium)
+#set-option -g status "on"
 set-option -g status "on"
 
 # default statusbar color
@@ -13,6 +14,7 @@ set-window-option -g window-status-activity-style bg=colour237,fg=colour248 # bg
 
 # active window title colors
 set-window-option -g window-status-current-style bg=red,fg=colour237 # fg=bg1
+# set-window-option -g window-status-current-style bg=colour214,fg=colour237 # fg=bg1  # ply change
 
 # pane border
 set-option -g pane-active-border-style fg=colour250 #fg2
@@ -26,7 +28,8 @@ set-option -g message-command-style bg=colour239,fg=colour223 # bg=fg3, fg=bg1
 
 # pane number display
 set-option -g display-panes-active-colour colour250 #fg2
-set-option -g display-panes-colour colour237 #bg1
+# set-option -g display-panes-colour colour237 #bg1
+set-option -g display-panes-colour colour239 #bg1
 
 # clock
 set-window-option -g clock-mode-colour colour109 #blue

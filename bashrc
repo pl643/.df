@@ -266,8 +266,6 @@ alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='bash_history'
 alias hi='history'
-alias ifz='installfzf'
-alias rdf='rm -rf $DF'
 alias l='echo ls -lhF; ls -lhF --color=always | less'
 alias la='echo ls -alhF; ls -alhF --color=always | less'
 alias lg='lazygit'
@@ -276,6 +274,7 @@ alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
+alias rdf="[ -d $DF ] && echo rm -rf $DF && rm -rf $DF"
 alias s='echo ls -CF; ls -CF --color=always | less'
 alias so='source'
 alias sa='ls -aCF --color=always | less'
@@ -289,8 +288,8 @@ alias tn='tmux rename-window'
 alias tpb='tmux set -g prefix C-b'
 alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
-alias tsb='tmux set-option -g status-position bottom'
-alias tst='tmux set-option -g status-position top'
+alias tsb='echo tmux set-option -g status-position bottom >> $df/localrc; tmux set-option -g status-position bottom'
+alias tst='echo tmux set-option -g status-position top    >> $df/localrc; tmux set-option -g status-position top'
 alias t='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
@@ -316,4 +315,5 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
+[ -f $df/localrc ] && echo Note: source $df/localrc && source $df/localrc
 [ -f $df/bashrc ] && echo Note: last line in $df/bashrc
