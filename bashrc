@@ -318,3 +318,4 @@ fi
 [ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
 [ -f ~/.profile ]     && echo Note: source ~/.profile && source ~/.profile
 [ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
+[ -f $df/bashrc ]     && echo Note: last line in $df/bashrc
