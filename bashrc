@@ -240,6 +240,13 @@ ma() { # make new alias for the previous command
     eval echo alias $newalias=\'$prevcmd\' >> "$df/aliases"
 }
 
+if [ ! -z $TMUX ]; then
+    [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
+    tmux source $df/tmux.conf
+    tmux source $df/tmux.gruvbox
+fi
+
+[ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
 [ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
 [ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
 [ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
@@ -298,13 +305,6 @@ alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
 alias v.='run_nvim .'
 set -o history
-
-[ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
-if [ ! -z $TMUX ]; then
-    [ -f "$df/tmux.bash" ] && source "$df/tmux.bash"
-    tmux source $df/tmux.conf
-    tmux source $df/tmux.gruvbox
-fi
 
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
