@@ -179,8 +179,8 @@ execute "nnoremap <leader>sg  :source " . g:dotfile . "/nvim/ginit.vim<cr>"
 execute "nnoremap <leader>ss  :w<cr>:source " . g:dotfile . "/vimrc<cr>:source " . g:dotfile . "/nvim/ginit.vim<cr>"
 nnoremap <leader>t   :vsplit<cr>:set nonumber<cr>:terminal bash<cr>i
 nnoremap <leader>w   :w<cr>
-nnoremap <leader>x   :wq<cr>
-inoremap <leader>x   <Esc>:wq<cr>
+nnoremap <leader>x   :x<cr>
+inoremap <leader>x   <Esc>:x<cr>
 nnoremap <leader>z   :color zellner<cr>
 nnoremap <leader>(	 f)ci(
 nnoremap <leader>[	 f]ci[
