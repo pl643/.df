@@ -78,7 +78,6 @@ run_nvim() {
         tar xfz $df/nvim-linux64.tar.gz -C $df
         rm -f $df/nvim-linux64.tar.gz
         $df/nvim-linux64/bin/nvim -u $df/vimrc -c PlugInstall -c q -c :q
-        $EDITOR -c PlugInstall -c q -c :q
     fi
     if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
@@ -259,6 +258,7 @@ alias Gd='git diff'
 alias Gh='git push'
 alias Gi='git config --global user.email "peter.wt.ly@gmail.com"; git config --global user.name "Peter Ly"'
 alias Gl='git pull'
+alias Gldf='cd $df; git pull; cd -'
 alias Gc='git commit'
 alias Gcm='git commit -m'
 alias Gs='git status'
