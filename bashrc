@@ -82,7 +82,7 @@ run_nvim() {
     if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
     fi
-    if [ $# -ne 0 ] ; then
+    if [ $# -eq 0 ] ; then
         $EDITOR
     else
         $EDITOR $@
