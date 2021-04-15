@@ -240,6 +240,10 @@ ma() { # make new alias for the previous command
     eval echo alias $newalias=\'$prevcmd\' >> "$df/aliases"
 }
 
+[ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
+[ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
+[ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
+
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='set -x'
 alias +='set +x'
@@ -265,7 +269,6 @@ alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='bash_history'
 alias hi='history'
-alias l='echo ls -lhF; ls -lhF --color=always | less'
 alias la='echo ls -alhF; ls -alhF --color=always | less'
 alias lg='lazygit'
 # alias ll='echo ls -lhF; ls -lhF --color=always | less'
@@ -301,10 +304,6 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 fi
-
-[ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
-[ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
-[ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
 
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
