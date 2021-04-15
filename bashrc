@@ -277,6 +277,7 @@ alias Gs='git status'
 alias gg='ga && git commit --fixup=HEAD && GIT_SEQUENCE_EDITOR=: git rebase HEAD~2 -i --autosquash' # https://dev.to/heroku/what-are-your-preferred-bash-aliases-1m8a
 alias h='bash_history'
 alias hi='history'
+alias l='echo ls -lhF; ls -lhF --color=always | less'
 alias la='echo ls -alhF; ls -alhF --color=always | less'
 alias lg='lazygit'
 # alias ll='echo ls -lhF; ls -lhF --color=always | less'
