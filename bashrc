@@ -302,6 +302,10 @@ if [ ! -z $TMUX ]; then
     tmux source $df/tmux.gruvbox
 fi
 
+[ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
+[ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
+[ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
+
 # bash insert/normal indicator prompt introduced in ver 4.4
 BASHVER=${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}
 if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
@@ -310,11 +314,8 @@ if (( $(echo "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]} < 4.4" | bc -l) )); then
     export PS1='\u@\h:\w (vi): '
 else
     PROMPT_COMMAND=reset_readline_prompt_mode_strings
-    PS1=' ' 
+    export PS1=' ' 
     export LESS="-FXRM" # F follow 
 fi
 
-[ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
-[ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
-[ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
 [ -f $df/bashrc ]     && echo Note: last line in $df/bashrc
