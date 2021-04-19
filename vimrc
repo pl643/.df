@@ -643,7 +643,8 @@ vnoremap   O  vip
 
 nnoremap ;s         <c-\><c-n><c-w><c-w>
 nnoremap ;P         <c-w><c-w>i<C-r>"+
-vnoremap t          y<c-w><c-w><c-\><c-n>pi
+" vnoremap t          y<c-w><c-w><c-\><c-n>pi
+vnoremap t          y<Esc>:qall<cr>
 
 " Terminal mappings {{{
 if has('nvim')
@@ -659,6 +660,12 @@ endif
 "}}}
 
 " functions {{{
+
+function! CpFromPane()
+    normal! Gzb
+    echo "CpFromPane: Visually 'v' highlight text, then press 't'"
+endfunction
+command! CpFromPane 	call CpFromPane()
 
 let s:hidden_all = 0
 function! ToggleHiddenAll()
@@ -944,7 +951,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         " Plug 'grvcoelho/vim-javascript-snippets'
         " BM
     else
-        echom "vimrc line 1136: outside g:load_plug hostname == CAR-LT-C50626"
+        " echom "vimrc line 1136: outside g:load_plug hostname == CAR-LT-C50626"
         Plug 'easymotion/vim-easymotion'
         Plug 'morhetz/gruvbox'
         Plug 'machakann/vim-highlightedyank'
