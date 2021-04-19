@@ -59,6 +59,18 @@ __fzf_history__() {
   fi
 }
 
+cp-from-pane() {
+    # set -x
+    pane_content=$df/.pane.content
+    display_line=$LINES
+    # display_line=$((LINES))
+    tmux capture-pane -pS -|tail -$display_line > $pane_content 
+    $EDITOR $pane_content -c CpFromPane
+    # export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
+    tmux paste-buffer
+    # set +x
+}
+
 # Required to refresh the prompt after fzf
 bind -m emacs-standard '"\er": redraw-current-line'
 
@@ -92,6 +104,11 @@ else
   bind -m emacs-standard -x '"\C-r": __fzf_history__'
   bind -m vi-command -x '"\C-r": __fzf_history__'
   bind -m vi-insert -x '"\C-r": __fzf_history__'
+
+  # CTRL-N - copy pane buffer
+    bind -m emacs-standard -x '"\C-n": cp-from-pane'
+    bind -m vi-command -x '"\C-n": cp-from-pane'
+    bind -m vi-insert -x '"\C-n": cp-from-pane'
 fi
 
 # ALT-C - cd into the selected directory
