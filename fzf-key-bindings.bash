@@ -59,7 +59,7 @@ __fzf_history__() {
   fi
 }
 
-__fzf_pane_history__() {
+__fzf_tmux_pane__() {
   local output
   output=$(
     builtin fc -lnr -2147483648 |
@@ -75,7 +75,9 @@ __fzf_pane_history__() {
 }
 
 fzf-from-pane() {
-    perl $df/capture-pane-fzf.pl | fzf
+    pane_content=$df/.pane.content
+    tmux capture-pane -pS - > $pane_content 
+    perl $df/capture-pane-fzf.pl $pane_content | fzf
 }
 
 cp-from-pane() {
@@ -84,7 +86,8 @@ cp-from-pane() {
     # display_line=$LINES
     # display_line=$((LINES))
     tmux capture-pane -pS - > $pane_content 
-    $EDITOR $pane_content -c CpFromPane
+    run_nvim $pane_content -c CpFromPane
+    # $EDITOR $pane_content -c CpFromPane
     # export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
     tmux paste-buffer
     # set +x
@@ -124,10 +127,10 @@ else
   bind -m vi-command -x '"\C-r": __fzf_history__'
   bind -m vi-insert -x '"\C-r": __fzf_history__'
 
-  # CTRL-F - copy pane buffer
-    bind -m emacs-standard -x '"\C-f": fzf-from-pane'
-    bind -m vi-command -x '"\C-f": fzf-from-pane'
-    bind -m vi-insert -x '"\C-f": fzf-from-pane'
+  # CTRL-P - copy pane buffer
+    bind -m emacs-standard -x '"\C-p": fzf-from-pane'
+    bind -m vi-command -x '"\C-p": fzf-from-pane'
+    bind -m vi-insert -x '"\C-p": fzf-from-pane'
 
   # CTRL-N - copy pane buffer
     bind -m emacs-standard -x '"\C-n": cp-from-pane'
