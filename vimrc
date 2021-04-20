@@ -663,7 +663,7 @@ endif
 
 function! CpFromPane()
     normal! Gzb
-    echo "CpFromPane: Visually 'v' highlight text, then press 't'"
+    echo "CpFromPane: Visually 'v' highlight text, then press 't/Space'"
     vnoremap <Space>    y<Esc>:qall<cr>
     vunmap   <Space><BS>
     vunmap   <Space><Space>
