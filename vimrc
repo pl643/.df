@@ -943,7 +943,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
             echom "line 1125:  windows platform"
             Plug 'neoclide/coc.nvim', {'branch': 'release'}
         else
-            echom "vimrc line 1128: non windows"
+            " echom "vimrc line 1128: non windows"
             Plug 'neoclide/coc.nvim', {'branch': 'release' }      " stable version
             " Plug 'TaDaa/vimade'
             Plug 'dracula/vim'
