@@ -665,6 +665,8 @@ function! CpFromPane()
     normal! Gzb
     echo "CpFromPane: Visually 'v' highlight text, then press 't'"
     vnoremap <Space>    y<Esc>:qall<cr>
+    vunmap   <Space><BS>
+    vunmap   <Space><Space>
 endfunction
 command! CpFromPane 	call CpFromPane()
 
