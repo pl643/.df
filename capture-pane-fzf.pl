@@ -1,4 +1,9 @@
-foreach(`sort /tmp/.pane|uniq`) {
+use Env qw(df);
+
+print "$ARGV[0]\n";
+$file=$ARGV[0];
+
+foreach(`sort $file|uniq`) {
     next if /^\s*$/;
     chomp;
     push @lines,$_;
