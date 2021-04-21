@@ -644,7 +644,7 @@ vnoremap   O  vip
 nnoremap ;s         <c-\><c-n><c-w><c-w>
 nnoremap ;P         <c-w><c-w>i<C-r>"+
 " vnoremap t          y<c-w><c-w><c-\><c-n>pi
-vnoremap t          y<Esc>:qall<cr>
+vnoremap t          y:silent !tmux select-pane -t :.+ \; paste-buffer \; select-pane -t :.-<cr>
 
 " Terminal mappings {{{
 if has('nvim')
@@ -664,7 +664,7 @@ endif
 function! CpFromPane()
     normal! Gzb
     echo "CpFromPane: Visually 'v' highlight text, then press 't/Space'"
-    vnoremap <Space>    y<Esc>:qall<cr>
+    vnoremap <Space>    y<Esc>:cq<cr>
     vunmap   <Space><BS>
     vunmap   <Space><Space>
 endfunction
