@@ -81,6 +81,12 @@ fzf-from-pane() {
     tmux paste-buffer
 }
 
+fzf-from-pane() {
+    fzf_word=$(tmux capture-pane -pS - | perl -ne 'print join("\n", split(/\s+/,$_));print("\n")'|sort|uniq|fzf)
+    tmux set-buffer $fzf_word
+    tmux paste-buffer
+}
+
 cp-from-pane() {
     # set -x
     pane_content=$df/.pane.content
