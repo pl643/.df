@@ -85,11 +85,13 @@ cp-from-pane() {
     pane_content=$df/.pane.content
     # display_line=$LINES
     # display_line=$((LINES))
+    tmux resize-pane -Z 
     tmux capture-pane -pS - > $pane_content 
     run_nvim $pane_content -c CpFromPane
-    # $EDITOR $pane_content -c CpFromPane
-    # export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
-    tmux paste-buffer
+    if [ $? -ne 0 ] ; then
+        tmux paste-buffer
+    fi
+    tmux resize-pane -Z 
     # set +x
 }
 
