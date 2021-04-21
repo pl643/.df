@@ -77,7 +77,8 @@ __fzf_tmux_pane__() {
 fzf-from-pane() {
     pane_content=$df/.pane.content
     tmux capture-pane -pS - > $pane_content 
-    perl $df/capture-pane-fzf.pl $pane_content | fzf
+    tmux set-buffer $(perl $df/capture-pane-fzf.pl $pane_content | fzf)
+    tmux paste-buffer
 }
 
 cp-from-pane() {
