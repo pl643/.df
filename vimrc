@@ -359,7 +359,7 @@ nnoremap   Gd	       :Gdiff<cr>
 " nnoremap   Gl	       :Gpull<cr>:Gstatus<cr>
 nnoremap   Gh          :Dispatch! git push<cr>
 nnoremap   Gl          :Dispatch! git pull<cr>
-nnoremap   Gy          :Goyo 120x100%<cr> <bar> :set number<cr>
+nnoremap   Gy          :Goyo 120x100%<cr> <bar> :set number<cr>:silent !tmux set -g status off<cr>:<Esc>
 
 nnoremap   gbh         :bp<cr>
 " nnoremap   gbl         :bn<cr>
@@ -486,6 +486,8 @@ nnoremap   s.          `[v`]>>
 " t map
 nnoremap   tb          :TagbarToggle<cr>
 nnoremap   t           *<C-]>wwzz
+nnoremap   t0          :silent !tmux set -g status off<Cr>
+nnoremap   t1          :silent !tmux set -g status on<Cr>
 nnoremap   tt          *<C-]>wwzz
 nnoremap   tl          #*:vsp<cr>:exec("tag ".expand("<cword>"))<cr>ww
 nnoremap   tj          #*:sp <cr>:exec("tag ".expand("<cword>"))<cr>ww
