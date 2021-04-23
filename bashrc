@@ -247,6 +247,7 @@ if [ ! -z $TMUX ]; then
 fi
 
 [ -f "$df/fzf-key-bindings.bash" ] && source "$df/fzf-key-bindings.bash"
+[ -f "$df/tmux-completion.bash" ]  && source "$df/tmux-completion.bash"
 [ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
 [ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
 [ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
