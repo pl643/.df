@@ -87,6 +87,14 @@ fzf-from-pane() {
     tmux paste-buffer
 }
 
+# Selection of current tmux pane content
+__fzf_tmux_pane_content__() {
+    fzf_word=$(tmux capture-pane -pS - | perl -ne 'print join("\n", split(/\s+/,$_));print("\n")'|sort|uniq|fzf)
+    tmux bind-key -n M-p paste-buffer
+    tmux set-buffer $fzf_word
+    tmux paste-buffer
+}
+
 cp-from-pane() {
     # set -x
     pane_content=$df/.pane.content
@@ -137,14 +145,14 @@ else
   bind -m vi-insert -x '"\C-r": __fzf_history__'
 
   # CTRL-P - copy pane buffer
-    bind -m emacs-standard -x '"\C-p": fzf-from-pane'
-    bind -m vi-command -x '"\C-p": fzf-from-pane'
-    bind -m vi-insert -x '"\C-p": fzf-from-pane'
+  bind -m emacs-standard -x '"\C-p": __fzf_tmux_pane_content__'
+  bind -m vi-command -x '"\C-p": __fzf_tmux_pane_content__'
+  bind -m vi-insert -x '"\C-p": __fzf_tmux_pane_content__'
 
   # CTRL-N - copy pane buffer
-    bind -m emacs-standard -x '"\C-n": cp-from-pane'
-    bind -m vi-command -x '"\C-n": cp-from-pane'
-    bind -m vi-insert -x '"\C-n": cp-from-pane'
+  bind -m emacs-standard -x '"\C-n": cp-from-pane'
+  bind -m vi-command -x '"\C-n": cp-from-pane'
+  bind -m vi-insert -x '"\C-n": cp-from-pane'
 fi
 
 # ALT-C - cd into the selected directory
