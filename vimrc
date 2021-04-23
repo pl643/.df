@@ -365,7 +365,7 @@ nnoremap   gbh         :bp<cr>
 " nnoremap   gbl         :bn<cr>
 " nnoremap   gbd         :bd<cr>
 nnoremap   Gr          :Grep \<<C-r><C-w>\><CR>
-nnoremap   Gs	       :Gstatus<cr>
+nnoremap   Gs	       :G<cr>
 
 map        Gj          <Plug>(GitGutterNextHunk)zz
 map        Gk          <Plug>(GitGutterPrevHunk)zz
