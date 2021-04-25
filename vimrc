@@ -127,6 +127,7 @@ nnoremap <leader>1 	         :<Up><cr>
 nnoremap <leader>3 	         :buffer! #<cr>
 nnoremap <leader>5 	         :w<cr>:source %<cr>
 nnoremap <leader>S           :SmoothScrollingToggle<cr>
+nnoremap <leader>a           :Ack<cr>
 nnoremap <leader>bb          :buffers<cr>:buffer<space>
 nnoremap <leader>bb          :buffers!<cr>:buffer!<Space>
 nnoremap <leader>bd          :bdelete!<cr>
@@ -895,7 +896,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         execute "source /nvm/users/ply/df/nvim/plug.vim"
         call plug#begin("/nvm/users/ply/df/nvim/plugged")
     endif
-    if hostname == "CAR-LT-C50626" || hostname == "Dell-7400"   "  Work Setup. configured to be in light mode, then inverted.
+    if hostname == "CAR-LT-C50626" || hostname == "dell7400"   "  Work Setup. configured to be in light mode, then inverted.
         " echom "Line 1064: inside g:load_plug hostname == CAR-LT-C50626"
         Plug 'easymotion/vim-easymotion'
         Plug 'morhetz/gruvbox'
@@ -941,6 +942,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         Plug 'nvim-lua/popup.nvim'
         Plug 'nvim-lua/plenary.nvim'
         Plug 'http://github.com/nvim-telescope/telescope.nvim'
+        Plug 'mileszs/ack.vim'
         "
         " https://github.com/phenomenes/ansible-snippets
         Plug 'phenomenes/ansible-snippets'
@@ -959,6 +961,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         " BM
     else
         " echom "vimrc line 1136: outside g:load_plug hostname == CAR-LT-C50626"
+        Plug 'mileszs/ack.vim'
         Plug 'easymotion/vim-easymotion'
         Plug 'morhetz/gruvbox'
         Plug 'machakann/vim-highlightedyank'
