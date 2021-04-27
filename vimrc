@@ -898,6 +898,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
     endif
     if hostname == "CAR-LT-C50626" || hostname == "dell7400"   "  Work Setup. configured to be in light mode, then inverted.
         " echom "Line 1064: inside g:load_plug hostname == CAR-LT-C50626"
+        Plug 'jremmen/vim-ripgrep'
         Plug 'easymotion/vim-easymotion'
         Plug 'morhetz/gruvbox'
         Plug 'machakann/vim-highlightedyank'
@@ -961,6 +962,7 @@ if !exists('g:loaded_plug')  " Only load if it hasn't been loaded.
         " BM
     else
         " echom "vimrc line 1136: outside g:load_plug hostname == CAR-LT-C50626"
+        Plug 'jremmen/vim-ripgrep'
         Plug 'mileszs/ack.vim'
         Plug 'easymotion/vim-easymotion'
         Plug 'morhetz/gruvbox'
