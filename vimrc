@@ -35,9 +35,9 @@ let g:UltiSnipsJumpBackwardTrigger="<M-h>"
 " let g:coc_snippet_prev = '<M-Left>'
 " let g:coc_force_debug = 1
 
-let g:enter_screen  = 1   " <Space>C to goggle
-let g:zen_mode      = 0   " <Space>Z to toggle
-let g:jk_mode       = "line"   " <Space>PL to toggle jk screen/page at a time
+let g:enter_screen   = 1   " <Space>C to goggle
+let g:zen_mode       = 0   " <Space>Z to toggle
+let g:jk_mode        = "line"   " <Space>PL to toggle jk screen/page at a time
 let g:superJK_mode   = "line"   " <line/paragraph/paragraph2/page
 let g:superJK_offset = "25%"    " top is default is 25
 let g:superJK_scroll = "1"      " top is default is 25
