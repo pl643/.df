@@ -35,7 +35,7 @@ let g:UltiSnipsJumpBackwardTrigger="<M-h>"
 " let g:coc_snippet_prev = '<M-Left>'
 " let g:coc_force_debug = 1
 
-let g:center_screen = 1   " <Space>C to goggle
+let g::enter_screen = 1   " <Space>C to goggle
 let g:zen_mode      = 0   " <Space>Z to toggle
 let g:jk_mode       = "line"   " <Space>PL to toggle jk screen/page at a time
 let g:superJK_mode   = "line"   " <line/paragraph/paragraph2/page
@@ -128,6 +128,8 @@ nnoremap <leader>3 	         :buffer! #<cr>
 nnoremap <leader>5 	         :w<cr>:source %<cr>
 nnoremap <leader>S           :SmoothScrollingToggle<cr>
 nnoremap <leader>a           :Ack<cr>
+nnoremap <leader>R           :Rg<Space>
+nnoremap <leader>r           :Rg<cr>
 nnoremap <leader>bb          :buffers<cr>:buffer<space>
 nnoremap <leader>bb          :buffers!<cr>:buffer!<Space>
 nnoremap <leader>bd          :bdelete!<cr>
@@ -190,7 +192,7 @@ nnoremap <leader>"	 ci"
 nnoremap <leader>'	 ci'
 nnoremap <leader>dp  :normal ggVG"+P<cr>
 nnoremap <leader>p   :normal "+P<cr>
-nnoremap <leader>rs  :vertical resize 115<cr>
+;nnoremap <leader>rs  :vertical resize 115<cr>
 nnoremap <A-v>       :normal "+P<cr>
 " nnoremap <leader>zz  :let &scrolloff=999-&scrolloff<cr>
 nnoremap <leader>y   :normal gg"+yG
