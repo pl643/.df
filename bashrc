@@ -300,7 +300,8 @@ alias le='less'
 alias np="echo $USER ALL\=\(ALL\) NOPASSWD:ALL"
 alias ni='nix-env -i'
 alias nqi='nix-env --query --installed'
-alias rdf="[ -d $DF ] && echo rm -rf $DF && rm -rf $DF"
+# alias rdf="[ -d "$DF" ] && echo rm -rf "$DF" && rm -rf "$DF""
+alias rdf="[ -d ""$DF"" ] && echo rm -rf ""$DF"" && rm -rf ""$DF"""
 alias s='echo ls -CF; ls -CF --color=always | less'
 alias so='source'
 alias sa='ls -aCF --color=always | less'
@@ -340,4 +341,4 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
-[ -f $df/bashrc ]     && echo Note: last line in $df/bashrc
+[ -f "$df"/bashrc ]     && echo Note: last line in "$df"/bashrc
