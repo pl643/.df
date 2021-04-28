@@ -1,16 +1,18 @@
-[ -f $df/fetch/fetch ] && $df/fetch/fetch
+#!/bin/bash
+
+[ -f "$df/fetch/fetch" ] && "$df/fetch/fetch"
 history -c
 set +o history
 HISTCONTROL=ignorespace
 export df=$DF/.df
-[ -z $USER ] && export USER=$(whoami)
+[ -z "$USER" ] && USER="$(whoami)" && export USER
 export PATH=$df/bin:$PATH
 export HISTFILE="$df/HISTFILE"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 reset_readline_prompt_mode_strings () {
-    bind "set vi-ins-mode-string \"$USER@$HOSTNAME:$(echo $PWD|sed "s+$HOME+~+") \$ \1\e[1;32m\2[I]\1\e[0m\2\""
-    bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:$(echo $PWD|sed "s+$HOME+~+") \$ \1\e[1;31m\2[N]\1\e[0m\2\""
+    bind "set vi-ins-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;32m\2[I]\1\e[0m\2\""
+    bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;31m\2[N]\1\e[0m\2\""
 }
 
 bind 'set show-mode-in-prompt on'
@@ -29,10 +31,10 @@ calc() {
     bc -l <<< "$@"
 }
 
-e() {
-    echo eval \$$@
-    eval \$$@
-}
+#e() {
+#    echo eval "\$$@"
+#    eval "\$$@"
+#}
 
 ft() {  # find text
     grep -iIHrn --color=always "$1" . | less -R -r -X   # less -X don't clear after exit
@@ -59,27 +61,27 @@ lazygit() {
 }
 
 vn() { # start vim with file:33 to jump to line 33
-    file=$(echo $1|cut -f1 -d:)
-    line=$(echo $1|cut -f2 -d:)
-    $EDITOR $file -c :$line
+    file=$(echo "$1"|cut -f1 -d:)
+    line=$(echo "$1"|cut -f2 -d:)
+    "$EDITOR $file -c :$line"
 }
 
 installfzf() {
     set -x
     [ ! -f "$df/bin/fzf" ] && \
-        wget -O $df/fzf.tgz https://github.com/junegunn/fzf/releases/download/0.26.0/fzf-0.26.0-linux_amd64.tar.gz && \
-        tar xfz $df/fzf.tgz -C $df/bin && rm -f $df/fzf.tgz
+        wget -O "$df/fzf.tgz" https://github.com/junegunn/fzf/releases/download/0.26.0/fzf-0.26.0-linux_amd64.tar.gz && \
+        tar xfz "$df/fzf.tgz" -C "$df/bin" && rm -f "$df/fzf.tgz"
 }
 
 run_nvim() {
     # set -x
     if [ ! -d "$df/nvim-linux64" ]; then 
-        wget -O $df/nvim-linux64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-        tar xfz $df/nvim-linux64.tar.gz -C $df
-        rm -f $df/nvim-linux64.tar.gz
-        $df/nvim-linux64/bin/nvim -u $df/vimrc -c PlugInstall -c q -c :q
+        wget -O "$df/nvim-linux64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+        tar xfz "$df/nvim-linux64.tar.gz" -C "$df"
+        rm -f "$df/nvim-linux64.tar.gz"
+        "$df/nvim-linux64/bin/nvim" -u "$df/vimrc" -c PlugInstall -c q -c :q
     fi
-    if [ -f $df/vimrc ] && [ -f $df/nvim-linux64/bin/nvim ]; then
+    if [ -f "$df/vimrc" ] && [ -f "$df/nvim-linux64/bin/nvim" ]; then
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
     fi
     if [ $# -eq 0 ] ; then
@@ -97,8 +99,8 @@ tnew () {
         printf "Usage: tnew sesion-name, strats new tmux\n" 
         return
     fi
-    if [ -f $df/tmux.bash ]; then
-        tmux new -d -s "$1" bash --rcfile $df/tmux.bash
+    if [ -f "$df"/tmux.bash ]; then
+        tmux new -d -s "$1" bash --rcfile "$df"/tmux.bash
         tmux switch -t "$1"
     fi
 }
@@ -106,7 +108,7 @@ tnew () {
 # alias dX to $dirhistoryfile sorted by usage
 bash_history() {  # cd alias
     top=30
-    echo Creating alias in $HISTFILE for top $top usage..
+    echo Creating alias in "$HISTFILE" for top "$top" usage..
     # set -x
     history -a
     i=1
