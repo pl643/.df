@@ -10,9 +10,14 @@ export PATH=$df/bin:$PATH
 export HISTFILE="$df/HISTFILE"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
+# reset_readline_prompt_mode_strings () {
+#     bind "set vi-ins-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;32m\2[I]\1\e[0m\2\""
+#     bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;31m\2[N]\1\e[0m\2\""
+# }
+
 reset_readline_prompt_mode_strings () {
-    bind "set vi-ins-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;32m\2[I]\1\e[0m\2\""
-    bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:$(echo "$PWD"|sed "s+$HOME+~+") \$ \1\e[1;31m\2[N]\1\e[0m\2\""
+    bind "set vi-ins-mode-string \"$USER@$HOSTNAME:"${PWD/#$HOME/\~}" \$ \1\e[1;32m\2[I]\1\e[0m\2\""
+    bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:"${PWD/#$HOME/\~}" \$ \1\e[1;31m\2[N]\1\e[0m\2\""
 }
 
 bind 'set show-mode-in-prompt on'
