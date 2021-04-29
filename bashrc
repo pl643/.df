@@ -20,15 +20,6 @@ reset_readline_prompt_mode_strings () {
     bind "set vi-cmd-mode-string \"$USER@$HOSTNAME:"${PWD/#$HOME/\~}" \$ \1\e[1;31m\2[N]\1\e[0m\2\""
 }
 
-bind 'set show-mode-in-prompt on'
-bind -m vi-insert 'Control-l: clear-screen'
-bind -m vi-insert "\C-a.":beginning-of-line
-bind -m vi-insert "\C-e.":end-of-line
-bind -m vi-insert "\C-w.":backward-kill-word
-bind 'TAB':menu-complete
-bind "set show-all-if-ambiguous on"
-bind "set menu-complete-display-prefix on"
-
 set -o vi
 shopt -s autocd histappend
 
@@ -259,6 +250,16 @@ fi
 [ -f $df/localrc ]    && echo Note: source $df/localrc && source $df/localrc
 [ -f ~/.bashrc ]      && echo Note: source ~/.bashrc && source ~/.bashrc
 [ -f ~/.ssh/aliases ] && echo Note: source ~/.ssh/aliases && source ~/.ssh/aliases
+
+bind 'set show-mode-in-prompt on'
+bind -m vi-insert 'Control-l: clear-screen'
+bind -m vi-insert "\C-a.":beginning-of-line
+bind -m vi-insert "\C-e.":end-of-line
+bind -m vi-insert "\C-w.":backward-kill-word
+bind 'TAB':menu-complete
+bind "set show-all-if-ambiguous on"
+bind "set menu-complete-display-prefix on"
+bind -x '"\C-l": clear'
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='set -x'
