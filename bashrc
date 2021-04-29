@@ -345,4 +345,7 @@ else
     export LESS="-FXRM" # F follow 
 fi
 
+if [ -z $1 ]; then
+    $1
+fi
 [ -f "$df"/bashrc ]     && echo Note: last line in "$df"/bashrc
