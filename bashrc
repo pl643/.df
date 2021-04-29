@@ -255,11 +255,13 @@ bind 'set show-mode-in-prompt on'
 bind -m vi-insert 'Control-l: clear-screen'
 bind -m vi-insert "\C-a.":beginning-of-line
 bind -m vi-insert "\C-e.":end-of-line
+bind -m vi-insert "\C-k.":previous-h
 bind -m vi-insert "\C-w.":backward-kill-word
 bind 'TAB':menu-complete
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on"
 bind -x '"\C-l": clear'
+# bind -x '"\C-k": previous-history'
 
 # telemetry-parser -g 1 -f /mnt/nvm/NVMeMgr/Packages/Latest/fw_trace_fmt_strings.txt -d /dev/nvme0
 alias -- -='set -x'
@@ -267,6 +269,7 @@ alias +='set +x'
 alias a='alias'
 alias A='ansible'
 alias b='echo -n "cd -: " ; builtin cd -'
+alias bv='echo $BASH_VERSION'
 alias c=cd
 alias cl='/mnt/c/Windows/System32/clip.exe'
 alias d='echo Directory alias from $dirhistoryfile; dir_history'
@@ -323,8 +326,8 @@ alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
 alias tsb='echo tmux set-option -g status-position bottom >> $df/localrc; tmux set-option -g status-position bottom'
 alias tst='echo tmux set-option -g status-position top    >> $df/localrc; tmux set-option -g status-position top'
-alias ta='tmux -2 attach || tmux -2 -f $df/tmux.conf new bash --rcfile $df/bashrc'
-alias t='tmux'
+alias ta='tmux32 -2 attach || tmux32 -2 -f "$df"/tmux.conf new bash --rcfile "$df"/bashrc'
+alias t='tmux32'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'
 alias v.='run_nvim .'
