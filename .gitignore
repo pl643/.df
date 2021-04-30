@@ -11,6 +11,8 @@ HISTFILE
 nvim/plugged/*
 nvim/plugged/vim-fugitive
 nvim/plugged/websearch.vim
+nvim/plugged/vim-airline/*
+nvim/plugged/vim-fugitive/*
 localrc
 .pane.content
 nvim/plugged/vim
