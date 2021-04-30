@@ -13,3 +13,4 @@ nvim/plugged/vim-fugitive
 nvim/plugged/websearch.vim
 localrc
 .pane.content
+nvim/plugged/vim
