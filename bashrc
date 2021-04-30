@@ -279,6 +279,7 @@ alias D='sudo docker'
 alias e='echo'
 alias fd='eval $(sort $dirhistoryfile|uniq|sed -e s/--// -e s/\\s// -e 's/^\/$//'|fzf)'
 alias ff="git ls-files | grep"
+alias f='fish -C "source $df/fishrc" -i'
 alias g='grep'
 alias gi='grep -i'
 alias G='git'
