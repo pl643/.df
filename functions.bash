@@ -1,4 +1,6 @@
-# these functions are ment to be called as argument 1
+# These bash functions are ment to be called as argument 1
+# ie: bash "$df"/functions.bash toggleALT
+
 # mapped as alt-enter from tmux
 function toggleALT() {
     ALTSTAT=$(tmux showenv TMUX_ALT_HJKL|cut -f2 -d=)
