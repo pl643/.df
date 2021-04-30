@@ -1,16 +1,10 @@
 .dirhistoryfile
 nvim-linux64/*
-nvim/plugged/AutoComplPop
-nvim/plugged/vim-snippets
-nvim/plugged/vim-tmux-navigator
 nvim/session.vim
 nvim/session.vimrc
 .dirbookmark
 HISTFILE
 .keep
 nvim/plugged/*
-nvim/plugged/vim-fugitive
-nvim/plugged/websearch.vim
 localrc
 .pane.content
-nvim/plugged/vim
