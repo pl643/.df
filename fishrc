@@ -1,3 +1,4 @@
+alias b='echo cd -; cd -'
 alias DF='echo cd $df; cd $df'
 alias Ga='git add'
 alias Gb='git branch'
@@ -8,7 +9,7 @@ alias GL='git log'
 alias Gh='git push'
 alias Gl='git pull'
 alias Gs='git status'
-alias b='echo cd -; cd -'
+alias le='less'
 alias u='echo cd ..; cd ..'
 alias ty='type'
 
