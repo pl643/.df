@@ -1,34 +1,28 @@
-alias a='alias'
-alias b='echo cd -; cd -'
-alias DF='echo cd $df; cd $df'
-alias GA='grep git $df/fishrc'
-alias Ga='git add'
-alias Gb='git branch'
-alias Gd='git diff'
-alias Gcm='git commit -m'
-alias Gco='git checkout'
-alias GL='git log'
-alias GH='git stash'
-alias Gh='git push'
-alias Gl='git pull'
-alias Gs='git status'
-alias GS='git switch'
-alias le='less'
-alias u='echo cd ..; cd ..'
-alias ty='type'
+abbr DF 'cd $df'
+abbr G 'git'
+abbr D 'docker'
+abbr GA 'grep git $df/fishrc'
+abbr GH 'git stash'
+abbr GL 'git log'
+abbr GS 'git switch'
+abbr Ga 'git add'
+abbr Gb 'git branch'
+abbr Gcm 'git commit -m'
+abbr Gco 'git checkout'
+abbr Gd 'git diff'
+abbr Gh 'git push'
+abbr Gl 'git pull'
+abbr Gs 'git status'
+abbr a 'alias'
+abbr b  cd -
+abbr c  cd
+abbr g 'git'
+abbr l    ls -lhF --color=always $argv \| less
+abbr le 'less'
+abbr s ls -CF --color=always $argv \| less
+abbr sf source $df/fishrc
+abbr t 'tmux'
+abbr ty 'type'
+abbr u 'cd ..'
 
-function l
-    echo ls -lhF $argv
-    ls -lhF --color=always $argv | less
-end
-
-function s
-    echo ls --color=always -CF $argv
-    ls -CF --color=always $argv | less
-end
-
-function sf
-    echo source $df/fishrc
-    source $df/fishrc
-end
-
+fish_vi_key_bindings

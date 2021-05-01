@@ -15,4 +15,14 @@ function toggleALT() {
     fi
 }
 
+function shell_key_mapping() {
+    if tmux show-env | grep '^SHELL=fish'; then
+        tmux bind-key  s split-window -h '$df/bin/fish -C "source $df/fishrc" -i'
+        tmux bind-key  S split-window -v '$df/bin/fish -C "source $df/fishrc" -i'
+    else
+        tmux bind-key  s split-window -h '$df/bin/bash --rcfile "$df"/bashrc'
+        tmux bind-key  S split-window -v '$df/bin/bash --rcfile "$df"/bashrc'
+    fi
+}
+
 [ ! -z $1 ] && $1
