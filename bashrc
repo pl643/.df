@@ -327,7 +327,9 @@ alias tpe='tmux set -g prefix C-e'
 alias tp='tmux_prefix_set'
 alias tsb='echo tmux set-option -g status-position bottom >> $df/localrc; tmux set-option -g status-position bottom'
 alias tst='echo tmux set-option -g status-position top    >> $df/localrc; tmux set-option -g status-position top'
-alias ta='tmux32 -2 attach || tmux32 -2 -f "$df"/tmux.conf new bash --rcfile "$df"/bashrc'
+# alias ta='tmux32 -2 attach || tmux32 -2 -f "$df"/tmux.conf new bash --rcfile "$df"/bashrc'
+alias ta="tmux32 -2 -f "$df"/tmux.conf new fish -C 'source $df/fishrc' -i"
+  
 alias t='tmux32'
 alias u='echo cd ..; builtin cd ..; ls -CF --color=always | less'
 alias v='run_nvim'

@@ -312,6 +312,7 @@ nnoremap   fh           F
 nnoremap   fj           /\<\><Left><Left>
 nnoremap   fk           ?\<\><Left><Left>
 nnoremap   fl           f
+nnoremap   fzd          :FZF $df<cr>
 nnoremap   fz.          :FZF .<cr>
 nnoremap   fzh          :FZF ~<cr>
 nnoremap   fzr          :FZF /<cr>

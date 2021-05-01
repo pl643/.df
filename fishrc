@@ -24,5 +24,12 @@ abbr sf source $df/fishrc
 abbr t 'tmux'
 abbr ty 'type'
 abbr u 'cd ..'
+abbr v bash $df/functions.bash run_nvim
 
 fish_vi_key_bindings
+
+if test -n TMUX
+    tmux source $df/tmux.conf
+    tmux source $df/tmux.gruvbox
+end
+$df/fetch/fetch

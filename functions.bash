@@ -16,13 +16,34 @@ function toggleALT() {
 }
 
 function shell_key_mapping() {
-    if tmux show-env | grep '^SHELL=fish'; then
+    if tmux show-env | grep -q '^SHELL=fish'; then
         tmux bind-key  s split-window -h '$df/bin/fish -C "source $df/fishrc" -i'
         tmux bind-key  S split-window -v '$df/bin/fish -C "source $df/fishrc" -i'
     else
         tmux bind-key  s split-window -h '$df/bin/bash --rcfile "$df"/bashrc'
         tmux bind-key  S split-window -v '$df/bin/bash --rcfile "$df"/bashrc'
     fi
+}
+
+function run_nvim() {
+    # set -x
+    if [ ! -d "$df/nvim-linux64" ]; then 
+        wget -O "$df/nvim-linux64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+        tar xfz "$df/nvim-linux64.tar.gz" -C "$df"
+        rm -f "$df/nvim-linux64.tar.gz"
+        "$df/nvim-linux64/bin/nvim" -u "$df/vimrc" -c PlugInstall -c q -c :q
+    fi
+    if [ -f "$df/vimrc" ] && [ -f "$df/nvim-linux64/bin/nvim" ]; then
+        export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
+    fi
+    if [ $# -eq 0 ] ; then
+        $EDITOR
+    else
+        $EDITOR $@
+    fi
+    # set +x
+    # echo EDITOR: $EDITOR
+    # export VISUAL=$EDITOR
 }
 
 [ ! -z $1 ] && $1
