@@ -1,35 +1,42 @@
-abbr DF 'cd $df'
-abbr G 'git'
-abbr D 'docker'
-abbr GA 'grep git $df/fishrc'
-abbr GH 'git stash'
-abbr GL 'git log'
-abbr GS 'git switch'
-abbr Ga 'git add'
-abbr Gb 'git branch'
-abbr Gcm 'git commit -m'
-abbr Gco 'git checkout'
-abbr Gd 'git diff'
-abbr Gh 'git push'
-abbr Gl 'git pull'
-abbr Gs 'git status'
-abbr a 'alias'
+abbr D docker
+abbr DF cd $df
+abbr G git
+abbr GA grep git $df/fishrc
+abbr GH git stash
+abbr GL git log
+abbr GS git switch
+abbr Ga git add
+abbr Gb git branch
+abbr Gc git commit
+abbr Gm git commit -m
+abbr Gco git checkout
+abbr Gd git diff
+abbr Gh git push
+abbr Gl git pull
+abbr Gs git status
+abbr T time
+abbr a alias
 abbr b  cd -
 abbr c  cd
-abbr g 'git'
-abbr l    ls -lhF --color=always $argv \| less
-abbr le 'less'
+abbr g git
+abbr l ls -lhF --color=always $argv \| less
+abbr le less
 abbr s ls -CF --color=always $argv \| less
 abbr sf source $df/fishrc
-abbr t 'tmux'
-abbr ty 'type'
-abbr u 'cd ..'
+abbr t tmux
+abbr ty type
+abbr u cd ..
 abbr v bash $df/functions.bash run_nvim
 
 fish_vi_key_bindings
+
+function fish_right_prompt -d "Write out the right prompt"
+    date '+%m/%d %H:%M:%S'
+end
 
 if test -n TMUX
     tmux source $df/tmux.conf
     tmux source $df/tmux.gruvbox
 end
+
 $df/fetch/fetch
