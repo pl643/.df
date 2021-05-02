@@ -30,8 +30,8 @@ function shell_key_mapping() {
         tmux bind-key  s split-window -h "$FISH -C \"source $df/fishrc\" -i"
         tmux bind-key  S split-window -v "$FISH -C \"source $df/fishrc\" -i"
     else
-        tmux bind-key  s split-window -h '$FISH --rcfile "$df"/bashrc'
-        tmux bind-key  S split-window -v '$FISH --rcfile "$df"/bashrc'
+        tmux bind-key  s split-window -h 'bash --rcfile "$df"/bashrc'
+        tmux bind-key  S split-window -v 'bash --rcfile "$df"/bashrc'
     fi
 }
 
