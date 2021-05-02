@@ -17,7 +17,7 @@ function toggleALT() {
 
 function set_fishshell_location() {
 	if grep -q CentOS /etc/os-release; then
-	   export FISH=$df/bin/centos/fish
+	   export FISH=$df/bin/centos7/fish
 	else
 	   export FISH=$df/bin/fish
 	fi
