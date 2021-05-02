@@ -15,13 +15,22 @@ function toggleALT() {
     fi
 }
 
+function set_fishshell_location() {
+	if grep -q CentOS /etc/os-release; then
+	   export FISH=$df/bin/centos/fish
+	else
+	   export FISH=$df/bin/fish
+	fi
+}
+
 function shell_key_mapping() {
+    set_fishshell_location
     if tmux show-env | grep -q '^SHELL=fish'; then
-        tmux bind-key  s split-window -h '$df/bin/fish -C "source $df/fishrc" -i'
-        tmux bind-key  S split-window -v '$df/bin/fish -C "source $df/fishrc" -i'
+        tmux bind-key  s split-window -h "$FISH -C \"source $df/fishrc\" -i"
+        tmux bind-key  S split-window -v "$FISH -C \"source $df/fishrc\" -i"
     else
-        tmux bind-key  s split-window -h '$df/bin/bash --rcfile "$df"/bashrc'
-        tmux bind-key  S split-window -v '$df/bin/bash --rcfile "$df"/bashrc'
+        tmux bind-key  s split-window -h '$FISH --rcfile "$df"/bashrc'
+        tmux bind-key  S split-window -v '$FISH --rcfile "$df"/bashrc'
     fi
 }
 
