@@ -6,8 +6,10 @@ abbr GH git stash
 abbr GL git log
 abbr GS git switch
 abbr Ga git add
+abbr Gap "git add . ; git commit -m '' ; git push"
 abbr Gb git branch
 abbr Gc git commit
+abbr Gcp git "commit -m '' ; git push"
 abbr Gm git commit -m
 abbr Gco git checkout
 abbr Gd git diff
