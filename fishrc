@@ -29,6 +29,7 @@ abbr u cd ..
 abbr v bash $df/functions.bash run_nvim
 
 fish_vi_key_bindings
+set fish_greeting
 
 function fish_right_prompt -d "Write out the right prompt"
     date '+%m/%d %H:%M:%S'
@@ -39,4 +40,6 @@ if test -n TMUX
     tmux source $df/tmux.gruvbox
 end
 
-$df/fetch/fetch
+if test -f $df/fetch/fetch
+    $df/fetch/fetch
+end
