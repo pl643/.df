@@ -43,3 +43,11 @@ end
 if test -f $df/fetch/fetch
     $df/fetch/fetch
 end
+
+function cd
+    if count $argv > /dev/null
+        builtin cd "$argv"; and ls | less
+    else
+        builtin cd ~; and ls | less
+    end
+end
