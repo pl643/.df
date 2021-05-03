@@ -8,27 +8,29 @@ abbr GS git switch
 abbr Ga git add
 abbr Gap "git add . ; git commit -m '' ; git push"
 abbr Gb git branch
-abbr Gc git commit
-abbr Gcp git "commit -m '' ; git push"
-abbr Gm git commit -m
+abbr Gc "git commit -m ''"
 abbr Gco git checkout
+abbr Gcp git "commit -m '' ; git push"
 abbr Gd git diff
 abbr Gh git push
 abbr Gl git pull
+abbr Gm git commit -m
 abbr Gs git status
 abbr T time
 abbr a alias
 abbr b  cd -
 abbr c  cd
+abbr es 'echo $status'
 abbr g git
 abbr l ls -lhF --color=always $argv \| less
 abbr le less
 abbr s ls -CF --color=always $argv \| less
+abbr se showenv
 abbr sf source $df/fishrc
 abbr t tmux
 abbr ty type
 abbr u cd ..
-abbr v bash $df/functions.bash run_nvim
+alias v 'eval $EDITOR $args'
 
 fish_vi_key_bindings
 set fish_greeting
@@ -51,5 +53,35 @@ function cd
         builtin cd "$argv"; and ls | less
     else
         builtin cd ~; and ls | less
+    end
+end
+
+function run_nvim
+    # set -x
+    if not test -d "$df/nvim-linux64"
+        wget -O "$df/nvim-linux64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+        tar xfz "$df/nvim-linux64.tar.gz" -C "$df"
+        rm -f "$df/nvim-linux64.tar.gz"
+        "$df/nvim-linux64/bin/nvim" -u "$df/vimrc" -c PlugInstall -c q -c :q
+    end
+    if test \( -f "$df/vimrc" -a -f "$df/nvim-linux64/bin/nvim" \)
+         #export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
+        set -x EDITOR $df/nvim-linux64/bin/nvim -u $df/vimrc
+    end
+#if [ $# -eq 0 ] ; then
+#        $EDITOR
+#    else
+#        $EDITOR $@
+#    fi
+    # set +x
+    # echo EDITOR: $EDITOR
+    # export VISUAL=$EDITOR
+end
+
+function showenv
+    if test (count $argv) -gt 0
+        echo (tmux show-environment | grep $argv | cut -f2 -d=)
+    else
+        tmux show-environment
     end
 end

@@ -37,13 +37,13 @@ function shell_key_mapping() {
 
 function run_nvim() {
     # set -x
-    if [ ! -d "$df/nvim-linux64" ]; then 
+    if not test -d "$df/nvim-linux64" ]
         wget -O "$df/nvim-linux64.tar.gz" https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
         tar xfz "$df/nvim-linux64.tar.gz" -C "$df"
         rm -f "$df/nvim-linux64.tar.gz"
         "$df/nvim-linux64/bin/nvim" -u "$df/vimrc" -c PlugInstall -c q -c :q
     fi
-    if [ -f "$df/vimrc" ] && [ -f "$df/nvim-linux64/bin/nvim" ]; then
+    if test -f "$df/vimrc" ] && test -f "$df/nvim-linux64/bin/nvim"
         export EDITOR="$df/nvim-linux64/bin/nvim -u $df/vimrc"
     fi
     if [ $# -eq 0 ] ; then
