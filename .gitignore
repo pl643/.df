@@ -8,3 +8,4 @@ nvim-linux64/*
 nvim/plugged/*
 nvim/session.vim
 nvim/session.vimrc
+bin/fish
