@@ -22,6 +22,9 @@ function set_fishshell_location() {
 	if grep -q CentOS-8 /etc/os-release; then
 	   export FISH=$df/bin/centos8/fish
     fi
+	if grep -q 20.04    /etc/os-release; then
+	   export FISH=$df/bin/ubuntu2004/fish
+    fi
 }
 
 function shell_key_mapping() {
